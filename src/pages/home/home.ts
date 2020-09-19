@@ -1,4 +1,11 @@
-import {LitElement, html, customElement, internalProperty} from 'lit-element';
+import {
+  LitElement,
+  html,
+  customElement,
+  internalProperty,
+  css,
+} from 'lit-element';
+import {styleMap} from 'lit-html/directives/style-map';
 
 import '../../components/header/header.ts';
 import '../../components/footer/footer.ts';
@@ -33,6 +40,14 @@ export class Home extends LitElement {
     });
   }
 
+  static get styles() {
+    return css`
+      carousel-images {
+        display: block;
+      }
+    `;
+  }
+
   render() {
     const images: Array<Images> = [
       {
@@ -57,6 +72,10 @@ export class Home extends LitElement {
       <div>
         <kpe-header></kpe-header>
         <carousel-images
+          style=${styleMap({
+            width: `${String(this.screenSize.width)}px`,
+            height: `${String(this.screenSize.height - 56)}px`,
+          })}
           .images="${images}"
           .screenSize="${this.screenSize}"
         ></carousel-images>
