@@ -36,12 +36,12 @@ export class OurProduct extends LitElement {
       <h1>Produk Kami</h1>
       <div id="container">
         <div class="section-container">
-          <img src=${pump} />
+          <img src=${pump} alt="Pompa Industri" />
           <h3>Pompa Industri</h3>
           <p>Produk unggulan kami seperti pompa Franklin, Flugo, dll.</p>
         </div>
         <div class="section-container">
-          <img src=${electricMotor} />
+          <img src=${electricMotor} alt="Motor Elektrik" />
           <h3>Motor Elektrik</h3>
           <p>Produk unggulan kami seperti motor Alliance, Franklin, dll.</p>
         </div>
