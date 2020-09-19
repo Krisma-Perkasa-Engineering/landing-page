@@ -3,9 +3,6 @@ name: Landing Page CI
 on:
   pull_request:
     branches: [master]
-  push:
-    branches:
-      - '**'
 
 jobs:
   integration_test:
