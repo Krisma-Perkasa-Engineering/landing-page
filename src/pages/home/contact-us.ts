@@ -2,10 +2,10 @@ import {LitElement, html, customElement, css} from 'lit-element';
 
 import './contact-us-content';
 
-import address from '../../assets/images/icon/address.svg';
-import email from '../../assets/images/icon/email.svg';
-import phone from '../../assets/images/icon/phone.svg';
-import whatsapp from '../../assets/images/icon/whatsapp.svg';
+import address from '../../assets/images/icons/address.svg';
+import email from '../../assets/images/icons/email.svg';
+import phone from '../../assets/images/icons/phone.svg';
+import whatsapp from '../../assets/images/icons/whatsapp.svg';
 
 @customElement('contact-us')
 export class ContactUs extends LitElement {
