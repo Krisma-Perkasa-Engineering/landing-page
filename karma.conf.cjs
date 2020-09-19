@@ -4,17 +4,11 @@ const merge = require('deepmerge');
 module.exports = (config) => {
   config.set(
     merge(createDefaultConfig(config), {
-      frameworks: [
-        'mocha',
-        // 'karma-typescript',
-        'chai',
-      ],
+      frameworks: ['mocha', 'chai'],
       client: {
         mocha: {ui: 'tdd', timeout: 60000},
       },
       files: [
-        // {pattern: 'node_modules/expect.js/index.js'},
-        // {pattern: 'src/**/*.ts'},
         {pattern: 'dist/**/*.spec.js', type: 'module'},
         {pattern: 'dist/**/*_test.js', type: 'module'},
         {

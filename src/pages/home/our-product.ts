@@ -1,7 +1,7 @@
 import {LitElement, html, customElement, css} from 'lit-element';
 
-import pump from '../../assets/images/icon/pump.svg';
-import electricMotor from '../../assets/images/icon/electric-motor.svg';
+import pump from '../../assets/images/icons/pump.svg';
+import electricMotor from '../../assets/images/icons/electric-motor.svg';
 
 @customElement('our-product')
 export class OurProduct extends LitElement {

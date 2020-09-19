@@ -1,0 +1,22 @@
+name: Landing Page CI
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches:
+      - '**'
+
+jobs:
+  integration_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: yarn install
+      - run: yarn test:component
+        env:
+          CI: true
