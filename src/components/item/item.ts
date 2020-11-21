@@ -7,7 +7,7 @@ export class Item extends LitElement {
   static get styles() {
     return css`
       :host {
-        width: 100%;
+        width: 240px;
       }
       .product-container {
         width: 240px;
