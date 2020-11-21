@@ -80,9 +80,11 @@ export class Home extends LitElement {
           .screenSize="${this.screenSize}"
         ></carousel-images>
         <content-container .screenSize="${this.screenSize}">
-          <about-us></about-us>
-          <our-product></our-product>
-          <contact-us></contact-us>
+          <main>
+            <about-us></about-us>
+            <our-product></our-product>
+            <contact-us></contact-us>
+          </main>
           <kpe-footer></kpe-footer>
         </content-container>
       </div>

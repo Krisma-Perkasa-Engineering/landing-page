@@ -3,7 +3,7 @@
 #### `render contact us content`
 
 ```html
-<div class="product-container">
+<div class="item-container">
   <img
     alt="Pompa sentrifugal vertikal multistage SS"
     height="240"

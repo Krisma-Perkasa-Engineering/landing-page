@@ -9,7 +9,7 @@ export class Item extends LitElement {
       :host {
         width: 240px;
       }
-      .product-container {
+      .item-container {
         width: 240px;
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16),
           0px 3px 6px rgba(0, 0, 0, 0.23);
@@ -27,7 +27,7 @@ export class Item extends LitElement {
 
   render() {
     return html`
-      <div class="product-container">
+      <div class="item-container">
         <img
           src=${this.image.path}
           width="240"
