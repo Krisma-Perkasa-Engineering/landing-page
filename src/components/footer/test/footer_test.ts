@@ -10,7 +10,7 @@ suite('kpe-footer', () => {
     assert.instanceOf(el, Footer);
   });
 
-  test('render contact us content', async () => {
+  test('render footer content', async () => {
     const el = await fixture(html`<kpe-footer></kpe-footer>>`);
     assert.shadowDom.equalSnapshot(el);
   });

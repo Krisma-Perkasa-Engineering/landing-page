@@ -1,6 +1,6 @@
 # `kpe-items`
 
-#### `render contact us content`
+#### `render items content`
 
 ```html
 <div class="items-container">

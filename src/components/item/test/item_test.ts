@@ -11,7 +11,7 @@ suite('kpe-item', () => {
     assert.instanceOf(el, Item);
   });
 
-  test('render contact us content', async () => {
+  test('render item content', async () => {
     const image: Image = {
       title: 'Pompa Sentrifugal Vertikal multistage SS',
       path: 'https://path.to.image.com/image',
