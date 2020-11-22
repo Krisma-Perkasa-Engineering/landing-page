@@ -10,7 +10,7 @@ suite('kpe-items', () => {
     assert.instanceOf(el, Items);
   });
 
-  test('render contact us content', async () => {
+  test('render items content', async () => {
     const el = await fixture(
       html`<kpe-items
           ><div slot="image">1</div>

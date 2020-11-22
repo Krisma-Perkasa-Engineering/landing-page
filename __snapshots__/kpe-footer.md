@@ -1,6 +1,6 @@
 # `kpe-footer`
 
-#### `render contact us content`
+#### `render footer content`
 
 ```html
 <p>
