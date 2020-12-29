@@ -16,7 +16,8 @@ import '../../components/footer/footer-plain.ts';
 import {fetchTag as fetchTagAction} from '../../actions/tags';
 import {Tag as TagDTO} from '../../actions/types';
 import {fetchProductsSummaryByTag as fetchProductsSummaryByTagAction} from '../../actions/products';
-import {Tag, ProductSummary, ScreenSize} from '../../components/types';
+import {ProductSummary, ScreenSize} from '../../components/types';
+import {Tag} from './types';
 
 import backIcon from '../../assets/images/icons/back.svg';
 
@@ -115,8 +116,12 @@ export class ListProductsBytag extends LitElement {
             ></kpe-header-dynamic>`}
         <content-container .screenSize=${this.screenSize}>
           <main>
-            ${this.tag.image &&
-            html`<img src=${this.tag.image.path} alt=${this.tag.image.path} />`}
+            ${this.tag.imageDescription
+              ? html`<img
+                  src=${this.tag.imageDescription.path}
+                  alt=${this.tag.imageDescription.path}
+                />`
+              : html``}
             <p>${this.tag.description}</p>
             <kpe-items>
               ${this.products.map((product) => {

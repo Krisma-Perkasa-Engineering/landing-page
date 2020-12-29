@@ -27,7 +27,10 @@ export class Home extends LitElement {
   @internalProperty()
   screenSize: ScreenSize = {
     width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight - 56,
+    height:
+      document.documentElement.clientWidth > 1024
+        ? document.documentElement.clientHeight - 112
+        : document.documentElement.clientHeight - 56,
   };
 
   connectedCallback() {
@@ -35,7 +38,10 @@ export class Home extends LitElement {
     window.addEventListener('resize', () => {
       this.screenSize = {
         width: document.documentElement.clientWidth,
-        height: document.documentElement.clientHeight - 56,
+        height:
+          document.documentElement.clientWidth > 1024
+            ? document.documentElement.clientHeight - 112
+            : document.documentElement.clientHeight - 56,
       };
     });
   }

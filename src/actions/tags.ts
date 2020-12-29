@@ -9,6 +9,10 @@ const tags: Array<Tag> = [
     description:
       'Pompa sentrifugal digunakan untuk mengangkut cairan dengan konversi energi kinetik rotasi ke energi hidrodinamik aliran cairan. Energi rotasi biasanya berasal dari mesin atau motor listrik.',
     slug: 'pompa-sentrifugal',
+    image: {
+      path: franklinElectricLogo,
+      alt: 'Franklin electric',
+    },
   },
   {
     id: '4cc9f9e6-c396-488e-9566-1abd60fa87e4',
@@ -16,6 +20,10 @@ const tags: Array<Tag> = [
     description:
       'Franklin electric memiliki moto “Moving Water, Moving Fuel, Moving Forward” merupakan perusahaan yang berfokus pada manajemen air dan minyak.',
     slug: 'franklin-electric',
+    imageDescription: {
+      path: franklinElectricLogo,
+      alt: 'Franklin electric',
+    },
     image: {
       path: franklinElectricLogo,
       alt: 'Franklin electric',

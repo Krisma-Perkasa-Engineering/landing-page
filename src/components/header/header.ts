@@ -19,13 +19,35 @@ export class Header extends LitElement {
       img {
         height: 36px;
       }
+      @media screen and (min-width: 1025px) {
+        header {
+          height: 112px;
+        }
+        img {
+          height: 72px;
+          cursor: pointer;
+        }
+      }
     `;
+  }
+
+  onClick() {
+    this.dispatchEvent(
+      new CustomEvent('main-logo-click', {
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   render() {
     return html`
       <header>
-        <img src="${LogoPath}" alt="Krisma Perkasa Engineering logo" />
+        <img
+          src="${LogoPath}"
+          alt="Krisma Perkasa Engineering logo"
+          @click=${this.onClick}
+        />
       </header>
     `;
   }
