@@ -1,6 +1,6 @@
 import {LitElement, html, customElement, css, property} from 'lit-element';
 
-import {Image} from './types';
+import {Item as ItemType} from './types';
 
 @customElement('kpe-item')
 export class Item extends LitElement {
@@ -23,18 +23,18 @@ export class Item extends LitElement {
   }
 
   @property({type: Object})
-  image: Image;
+  item: ItemType;
 
   render() {
     return html`
       <div class="item-container">
         <img
-          src=${this.image.path}
+          src=${this.item.image.path}
           width="240"
           height="240"
-          alt=${this.image.alt}
+          alt=${this.item.image.alt}
         />
-        <h2>${this.image.title}</h2>
+        <h2>${this.item.name}</h2>
       </div>
     `;
   }

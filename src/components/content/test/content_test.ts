@@ -20,7 +20,7 @@ suite('content-container', () => {
     assert.shadowDom.equal(
       el,
       `
-      <div style="margin: 32px;">
+      <div style="min-height: 512px; margin: 0px 32px;">
         <slot></slot>
       </div>
       `
@@ -37,7 +37,7 @@ suite('content-container', () => {
     assert.shadowDom.equal(
       el,
       `
-      <div style="margin: 32px 112px;">
+      <div style="min-height: 1024px; margin: 0px 112px;">
         <slot></slot>
       </div>
       `

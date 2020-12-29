@@ -125,6 +125,7 @@ section {
 }
 body {
   line-height: 1.6;
+  width: 100%;
 }
 ol,
 ul {
@@ -144,4 +145,8 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+h1 {
+  font-size: 20px;
 }

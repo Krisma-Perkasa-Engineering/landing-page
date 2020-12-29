@@ -1,4 +1,4 @@
-import {LitElement, html, customElement, css, property} from 'lit-element';
+import {LitElement, html, customElement, css} from 'lit-element';
 
 @customElement('kpe-items')
 export class Items extends LitElement {
@@ -34,7 +34,7 @@ export class Items extends LitElement {
   render() {
     return html`
       <div class="items-container">
-        <slot name="image"></slot>
+        <slot name="item"></slot>
       </div>
     `;
   }
