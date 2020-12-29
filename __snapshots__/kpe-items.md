@@ -4,7 +4,7 @@
 
 ```html
 <div class="items-container">
-  <slot name="image">
+  <slot name="item">
   </slot>
 </div>
 

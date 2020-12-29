@@ -11,7 +11,7 @@ suite('kpe-footer', () => {
   });
 
   test('render footer content', async () => {
-    const el = await fixture(html`<kpe-footer></kpe-footer>>`);
+    const el = await fixture(html`<kpe-footer></kpe-footer>`);
     assert.shadowDom.equalSnapshot(el);
   });
 });

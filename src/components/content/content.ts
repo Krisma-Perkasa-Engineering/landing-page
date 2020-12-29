@@ -11,6 +11,14 @@ export class Content extends LitElement {
       :host {
         font-family: 'Roboto', 'Poppins', 'Arial';
       }
+      div {
+        display: flex;
+        flex-direction: column;
+        /* min-height: 100vh; */
+      }
+      ::slotted(*:last-child) {
+        margin-top: auto;
+      }
     `;
   }
 
@@ -24,7 +32,9 @@ export class Content extends LitElement {
     return html`
       <div
         style=${styleMap({
-          margin: this.screenSize.width > 1024 ? '32px 112px' : '32px',
+          minHeight: `${this.screenSize.height}px`,
+          margin:
+            this.screenSize.width > 1024 ? '0 112px 0 112px' : '0 32px 0 32px',
         })}
       >
         <slot></slot>

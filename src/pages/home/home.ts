@@ -27,7 +27,7 @@ export class Home extends LitElement {
   @internalProperty()
   screenSize: ScreenSize = {
     width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight,
+    height: document.documentElement.clientHeight - 56,
   };
 
   connectedCallback() {
@@ -74,7 +74,7 @@ export class Home extends LitElement {
         <carousel-images
           style=${styleMap({
             width: `${String(this.screenSize.width)}px`,
-            height: `${String(this.screenSize.height - 56)}px`,
+            height: `${String(this.screenSize.height)}px`,
           })}
           .images="${images}"
           .screenSize="${this.screenSize}"
