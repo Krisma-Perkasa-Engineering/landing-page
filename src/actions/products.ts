@@ -16,6 +16,7 @@ const products: Array<Product> = [
       {name: 'Bahan', value: 'Metal'},
       {name: 'Tekanan minimal', value: '3 MPA'},
     ],
+    slug: 'pompa-sentrifugal-vertical-multistage-ss',
     tags: ['pompa-sentrifugal', 'franklin-electric'],
   },
   {
@@ -31,52 +32,56 @@ const products: Array<Product> = [
       {name: 'Bahan', value: 'Metal'},
       {name: 'Tekanan minimal', value: '3 MPA'},
     ],
+    slug: 'pompa-sentrifugal-horizontal-multistage-ss',
     tags: ['pompa-sentrifugal', 'franklin-electric'],
   },
   {
-    id: '4cc9f9e6-c396-488e-9566-1abd60fa87e4',
-    name: 'Pompa sentrifugal horizontal multistage ss',
+    id: '50fae6f7-eef9-4153-9ab0-22e9d9357f94',
+    name: 'Pompa sentrifugal D series',
     description:
       'Pompa sentrifugal terbaik di kelasnya. Terbuat dari bahan metal anti karat yang dapat bertahan di cairan kimia sekalipun. Pompa ini dapat digunakan untuk kebutuhan sumur dan pabrik anda. Pompa centrifugal SS ini dapat bertahan hingga 10 tahun dalam kondisi optimal.',
     image: {
       path: pompaSentrifugalVerticalMultistageSS,
-      alt: 'Pompa sentrifugal horizontal multistage ss',
+      alt: 'Pompa sentrifugal D series',
     },
     specification: [
       {name: 'Bahan', value: 'Metal'},
       {name: 'Tekanan minimal', value: '3 MPA'},
     ],
+    slug: 'pompa-sentrifugal-D-series',
     tags: ['pompa-sentrifugal', 'franklin-electric'],
   },
   {
-    id: '4cc9f9e6-c396-488e-9566-1abd60fa87e4',
-    name: 'Pompa sentrifugal horizontal multistage ss',
+    id: '2bea28b7-2116-4af6-8489-fcb3e2a06cec',
+    name: 'Pompa sentrifugal DR series',
     description:
       'Pompa sentrifugal terbaik di kelasnya. Terbuat dari bahan metal anti karat yang dapat bertahan di cairan kimia sekalipun. Pompa ini dapat digunakan untuk kebutuhan sumur dan pabrik anda. Pompa centrifugal SS ini dapat bertahan hingga 10 tahun dalam kondisi optimal.',
     image: {
       path: pompaSentrifugalVerticalMultistageSS,
-      alt: 'Pompa sentrifugal horizontal multistage ss',
+      alt: 'Pompa sentrifugal DR series',
     },
     specification: [
       {name: 'Bahan', value: 'Metal'},
       {name: 'Tekanan minimal', value: '3 MPA'},
     ],
+    slug: 'pompa-sentrifugal-DR-series',
     tags: ['pompa-sentrifugal', 'franklin-electric'],
   },
   {
-    id: '4cc9f9e6-c396-488e-9566-1abd60fa87e4',
-    name: 'Pompa sentrifugal horizontal multistage ss',
+    id: '3f9cfb93-e99e-4048-a34c-1556077dc286',
+    name: 'Pompa submersible Flugo V-6',
     description:
-      'Pompa sentrifugal terbaik di kelasnya. Terbuat dari bahan metal anti karat yang dapat bertahan di cairan kimia sekalipun. Pompa ini dapat digunakan untuk kebutuhan sumur dan pabrik anda. Pompa centrifugal SS ini dapat bertahan hingga 10 tahun dalam kondisi optimal.',
+      'Pompa submersible terbaik di kelasnya. Terbuat dari bahan metal anti karat yang dapat bertahan di cairan kimia sekalipun. Pompa ini dapat digunakan untuk kebutuhan sumur dan pabrik anda. Pompa submersible ini dapat bertahan hingga 10 tahun dalam kondisi optimal.',
     image: {
       path: pompaSentrifugalVerticalMultistageSS,
-      alt: 'Pompa sentrifugal horizontal multistage ss',
+      alt: 'Pompa submersible flugo V-6',
     },
     specification: [
       {name: 'Bahan', value: 'Metal'},
       {name: 'Tekanan minimal', value: '3 MPA'},
     ],
-    tags: ['pompa-sentrifugal', 'franklin-electric'],
+    slug: 'pompa-submersible-flugo-v-6',
+    tags: ['pompa-celup', 'flugo'],
   },
 ];
 

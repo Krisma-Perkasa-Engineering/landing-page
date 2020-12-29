@@ -8,25 +8,30 @@ type Image = {
   alt: string;
 };
 
-export type ProductSummary = {
+type ItemSummary = {
   id: string;
   name: string;
+  slug: string;
   image: Image;
 };
 
-export type Product = {
-  id: string;
-  name: string;
+export type ProductSummary = ItemSummary;
+
+export type Product = ProductSummary & {
   description: string;
   specification: Array<Specification>;
-  image: Image;
   tags: Array<string>;
 };
 
-export type Tag = {
-  id: string;
-  name: string;
+export type Tag = (Category | Brand) & {
   description: string;
-  slug: string;
-  image?: Image;
+  imageDescription?: Image;
+};
+
+export type Category = ItemSummary & {
+  tag: string;
+};
+
+export type Brand = ItemSummary & {
+  tag: string;
 };
