@@ -79,6 +79,7 @@ export class ListBrandsAndCategories extends LitElement {
   async connectedCallback() {
     super.connectedCallback();
     window.addEventListener('resize', this.windowChange);
+    // TODO: Change implementation on route integration
     await this.fetchCategories('pompa');
     await this.fetchBrands('pompa');
   }

@@ -1,4 +1,3 @@
-import 'regenerator-runtime/runtime';
 import {LitElement, html, customElement} from 'lit-element';
 
 import './pages/home/home.ts';

@@ -19,7 +19,7 @@ export type ProductSummary = ItemSummary;
 
 export type Product = ProductSummary & {
   description: string;
-  specification: Array<Specification>;
+  specifications: Array<Specification>;
   tags: Array<string>;
 };
 
