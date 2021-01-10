@@ -17,6 +17,9 @@ import {fetchBrands as fetchBrandsAction} from '../../actions/brands';
 import {Category as CategoryDTO} from '../../actions/types';
 import {ScreenSize} from '../../components/types';
 import {Item} from './types';
+import {setTitle, setMetaDescription} from '../../helpers/seo/seo';
+import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
+import {PageSeo} from '../../actions/types';
 
 import backIcon from '../../assets/images/icons/back.svg';
 
@@ -36,58 +39,6 @@ export class ListBrandsAndCategories extends LitElement {
 
   @internalProperty()
   listBrands: Array<Item> = [];
-
-  async fetchCategories(typeSlug: string) {
-    /**
-     * This will fetch list of categories and set to local state
-     */
-    const categories: Array<CategoryDTO> = await fetchCategoriesAction(
-      typeSlug
-    );
-    this.listCategories = categories;
-  }
-
-  async fetchBrands(typeSlug: string) {
-    /**
-     * This will fetch list of brands and set to local state
-     */
-    const brands: Array<CategoryDTO> = await fetchBrandsAction(typeSlug);
-    this.listBrands = brands;
-  }
-
-  onItemClick = (itemEvent: CustomEvent) => {
-    console.log(itemEvent.detail.value);
-  };
-
-  onBackClick = () => {
-    // TODO: Change implementation on route integration
-    console.log('Back button clicked!');
-  };
-
-  onMainLogoClick = () => {
-    // TODO: Change implementation on route integration
-    console.log('Main logo clicked!');
-  };
-
-  windowChange = () => {
-    this.screenSize = {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight - 56,
-    };
-  };
-
-  async connectedCallback() {
-    super.connectedCallback();
-    window.addEventListener('resize', this.windowChange);
-    // TODO: Change implementation on route integration
-    await this.fetchCategories('pompa');
-    await this.fetchBrands('pompa');
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    window.removeEventListener('resize', this.windowChange);
-  }
 
   static get styles() {
     return css`
@@ -134,5 +85,76 @@ export class ListBrandsAndCategories extends LitElement {
         </content-container>
       </div>
     `;
+  }
+
+  /**
+   * This will fetch list of categories and set to local state
+   */
+  async fetchCategories(typeSlug: string) {
+    const categories: Array<CategoryDTO> = await fetchCategoriesAction(
+      typeSlug
+    );
+    this.listCategories = categories;
+  }
+
+  /**
+   * This will fetch list of brands and set to local state
+   */
+  async fetchBrands(typeSlug: string) {
+    const brands: Array<CategoryDTO> = await fetchBrandsAction(typeSlug);
+    this.listBrands = brands;
+  }
+
+  /**
+   * This will fetch SEO metadata for current page
+   */
+  fetchPageSeo(slug: string) {
+    fetchPageSeoAction(slug)
+      .then((pageSeo: PageSeo) => {
+        setTitle(pageSeo.title);
+        setMetaDescription(pageSeo.description);
+      })
+      .catch(() => {
+        setTitle('');
+        setMetaDescription('');
+      });
+  }
+
+  onItemClick = (itemEvent: CustomEvent) => {
+    console.log(itemEvent.detail.value);
+  };
+
+  onBackClick = () => {
+    // TODO: Change implementation on route integration
+    console.log('Back button clicked!');
+  };
+
+  onMainLogoClick = () => {
+    // TODO: Change implementation on route integration
+    console.log('Main logo clicked!');
+  };
+
+  windowChange = () => {
+    this.screenSize = {
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight - 56,
+    };
+  };
+
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('resize', this.windowChange);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('resize', this.windowChange);
+  }
+
+  async firstUpdated() {
+    // TODO: Change implementation on route integration
+    await this.fetchCategories('pompa');
+    await this.fetchBrands('pompa');
+    this.fetchPageSeo('pompa-industri');
   }
 }
