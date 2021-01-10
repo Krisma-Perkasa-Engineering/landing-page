@@ -12,7 +12,7 @@ const products: Array<Product> = [
       path: pompaSentrifugalVerticalMultistageSS,
       alt: 'Pompa sentrifugal vertical multistage ss',
     },
-    specification: [
+    specifications: [
       {name: 'Bahan', value: 'Metal'},
       {name: 'Tekanan minimal', value: '3 MPA'},
     ],
@@ -28,7 +28,7 @@ const products: Array<Product> = [
       path: pompaSentrifugalVerticalMultistageSS,
       alt: 'Pompa sentrifugal horizontal multistage ss',
     },
-    specification: [
+    specifications: [
       {name: 'Bahan', value: 'Metal'},
       {name: 'Tekanan minimal', value: '3 MPA'},
     ],
@@ -44,7 +44,7 @@ const products: Array<Product> = [
       path: pompaSentrifugalVerticalMultistageSS,
       alt: 'Pompa sentrifugal D series',
     },
-    specification: [
+    specifications: [
       {name: 'Bahan', value: 'Metal'},
       {name: 'Tekanan minimal', value: '3 MPA'},
     ],
@@ -60,7 +60,7 @@ const products: Array<Product> = [
       path: pompaSentrifugalVerticalMultistageSS,
       alt: 'Pompa sentrifugal DR series',
     },
-    specification: [
+    specifications: [
       {name: 'Bahan', value: 'Metal'},
       {name: 'Tekanan minimal', value: '3 MPA'},
     ],
@@ -76,7 +76,7 @@ const products: Array<Product> = [
       path: pompaSentrifugalVerticalMultistageSS,
       alt: 'Pompa submersible flugo V-6',
     },
-    specification: [
+    specifications: [
       {name: 'Bahan', value: 'Metal'},
       {name: 'Tekanan minimal', value: '3 MPA'},
     ],
@@ -91,6 +91,13 @@ export const fetchProductsSummaryByTag = (
   products
     .filter((product) => product.tags.includes(tagSlug))
     .map((product) => {
-      const {description, specification, tags, ...rest} = product;
+      const {description, specifications, tags, ...rest} = product;
       return rest;
     });
+
+export const fetchProductBySlug = (slug: string): Promise<Product> => {
+  const product = products.find((product) => product.slug === slug);
+  return new Promise((resolve, reject) => {
+    product ? resolve(product) : reject(new Error('Product not found'));
+  });
+};
