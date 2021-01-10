@@ -102,17 +102,24 @@ export class Home extends LitElement {
       });
   }
 
+  windowChange = () => {
+    this.screenSize = {
+      width: document.documentElement.clientWidth,
+      height:
+        document.documentElement.clientWidth > 1024
+          ? document.documentElement.clientHeight - 112
+          : document.documentElement.clientHeight - 56,
+    };
+  };
+
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('resize', () => {
-      this.screenSize = {
-        width: document.documentElement.clientWidth,
-        height:
-          document.documentElement.clientWidth > 1024
-            ? document.documentElement.clientHeight - 112
-            : document.documentElement.clientHeight - 56,
-      };
-    });
+    window.addEventListener('resize', this.windowChange);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('resize', this.windowChange);
   }
 
   firstUpdated() {
