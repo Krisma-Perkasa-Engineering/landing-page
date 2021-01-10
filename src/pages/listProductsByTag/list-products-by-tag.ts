@@ -18,6 +18,9 @@ import {Tag as TagDTO} from '../../actions/types';
 import {fetchProductsSummaryByTag as fetchProductsSummaryByTagAction} from '../../actions/products';
 import {ProductSummary, ScreenSize} from '../../components/types';
 import {Tag} from './types';
+import {setTitle, setMetaDescription} from '../../helpers/seo/seo';
+import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
+import {PageSeo} from '../../actions/types';
 
 import backIcon from '../../assets/images/icons/back.svg';
 
@@ -39,54 +42,6 @@ export class ListProductsBytag extends LitElement {
 
   @internalProperty()
   products: Array<ProductSummary> = [];
-
-  async fetchTag(tagSlug: string) {
-    /**
-     * This will fetch tag detail and set to local state
-     */
-    const tag: TagDTO = await fetchTagAction(tagSlug);
-    if (!tag) {
-      // Should be redirected to 404 page not found
-      this.tag = {
-        id: '',
-        name: 'Kategori tidak ditemukan',
-        description:
-          'Maaf, kami tidak memiliki produk dengan kategori yang anda cari.',
-        slug: '',
-      };
-    } else {
-      this.tag = tag;
-    }
-  }
-
-  async fetchProductsSummaryByTag(tagSlug: string) {
-    /**
-     * This will fetch list of products by tag and set to local state
-     */
-    const products: Array<ProductSummary> = await fetchProductsSummaryByTagAction(
-      tagSlug
-    );
-    this.products = products;
-  }
-
-  windowChange = () => {
-    this.screenSize = {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight - 56,
-    };
-  };
-
-  async connectedCallback() {
-    super.connectedCallback();
-    window.addEventListener('resize', this.windowChange);
-    await this.fetchTag('pompa-sentrifugal');
-    await this.fetchProductsSummaryByTag('pompa-sentrifugal');
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    window.removeEventListener('resize', this.windowChange);
-  }
 
   static get styles() {
     return css`
@@ -133,5 +88,73 @@ export class ListProductsBytag extends LitElement {
         </content-container>
       </div>
     `;
+  }
+
+  /**
+   * This will fetch tag detail and set to local state
+   */
+  async fetchTag(tagSlug: string) {
+    const tag: TagDTO = await fetchTagAction(tagSlug);
+    if (!tag) {
+      // Should be redirected to 404 page not found
+      this.tag = {
+        id: '',
+        name: 'Kategori tidak ditemukan',
+        description:
+          'Maaf, kami tidak memiliki produk dengan kategori yang anda cari.',
+        slug: '',
+      };
+    } else {
+      this.tag = tag;
+    }
+  }
+
+  /**
+   * This will fetch list of products by tag and set to local state
+   */
+  async fetchProductsSummaryByTag(tagSlug: string) {
+    const products: Array<ProductSummary> = await fetchProductsSummaryByTagAction(
+      tagSlug
+    );
+    this.products = products;
+  }
+
+  /**
+   * This will fetch SEO metadata for current page
+   */
+  fetchPageSeo(slug: string) {
+    fetchPageSeoAction(slug)
+      .then((pageSeo: PageSeo) => {
+        setTitle(pageSeo.title);
+        setMetaDescription(pageSeo.description);
+      })
+      .catch(() => {
+        setTitle('');
+        setMetaDescription('');
+      });
+  }
+
+  windowChange = () => {
+    this.screenSize = {
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight - 56,
+    };
+  };
+
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('resize', this.windowChange);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('resize', this.windowChange);
+  }
+
+  async firstUpdated() {
+    // TODO: Change implementation on route integration
+    await this.fetchTag('pompa-sentrifugal');
+    await this.fetchProductsSummaryByTag('pompa-sentrifugal');
+    this.fetchPageSeo('pompa-sentrifugal');
   }
 }

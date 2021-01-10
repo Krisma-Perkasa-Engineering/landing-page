@@ -35,3 +35,10 @@ export type Category = ItemSummary & {
 export type Brand = ItemSummary & {
   tag: string;
 };
+
+export type PageSeo = {
+  id: string;
+  title: string;
+  description: string;
+  slug: string;
+};

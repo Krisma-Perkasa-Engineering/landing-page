@@ -17,6 +17,9 @@ import './contact-us.ts';
 
 import {Images} from '../../components/carousel/types';
 import {ScreenSize} from '../../components/types';
+import {setTitle, setMetaDescription} from '../../helpers/seo/seo';
+import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
+import {PageSeo} from '../../actions/types';
 
 import logo1 from '../../assets/images/carousel/banner-pump-1.jpg';
 import logo2 from '../../assets/images/carousel/banner-pump-2.jpg';
@@ -32,19 +35,6 @@ export class Home extends LitElement {
         ? document.documentElement.clientHeight - 112
         : document.documentElement.clientHeight - 56,
   };
-
-  connectedCallback() {
-    super.connectedCallback();
-    window.addEventListener('resize', () => {
-      this.screenSize = {
-        width: document.documentElement.clientWidth,
-        height:
-          document.documentElement.clientWidth > 1024
-            ? document.documentElement.clientHeight - 112
-            : document.documentElement.clientHeight - 56,
-      };
-    });
-  }
 
   static get styles() {
     return css`
@@ -95,5 +85,37 @@ export class Home extends LitElement {
         </content-container>
       </div>
     `;
+  }
+
+  /**
+   * This will fetch SEO metadata for current page
+   */
+  fetchPageSeo(slug: string) {
+    fetchPageSeoAction(slug)
+      .then((pageSeo: PageSeo) => {
+        setTitle(pageSeo.title);
+        setMetaDescription(pageSeo.description);
+      })
+      .catch(() => {
+        setTitle('');
+        setMetaDescription('');
+      });
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('resize', () => {
+      this.screenSize = {
+        width: document.documentElement.clientWidth,
+        height:
+          document.documentElement.clientWidth > 1024
+            ? document.documentElement.clientHeight - 112
+            : document.documentElement.clientHeight - 56,
+      };
+    });
+  }
+
+  firstUpdated() {
+    this.fetchPageSeo('');
   }
 }

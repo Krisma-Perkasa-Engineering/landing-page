@@ -14,8 +14,10 @@ import '../../components/footer/footer-plain.ts';
 
 import {ScreenSize} from '../../components/types';
 import {ContactIcon, Corporate, CorporateTemplate, Product} from './types';
-
 import {fetchProductBySlug} from '../../actions/products';
+import {setTitle, setMetaDescription} from '../../helpers/seo/seo';
+import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
+import {PageSeo} from '../../actions/types';
 
 import WhatsappIcon from '../../assets/images/icons/whatsapp.svg';
 import EmailIcon from '../../assets/images/icons/email.svg';
@@ -60,48 +62,6 @@ export class DetailProduct extends LitElement {
 
   @internalProperty()
   contactIcon: ContactIcon;
-
-  fetchProductBySlug(slug: string) {
-    /**
-     * This will fetch product detail and set to local state if available, else redirect to not found page
-     * TODO: Change implementation on route integration
-     */
-    fetchProductBySlug(slug)
-      .then((product) => (this.product = product))
-      .catch((err: Error) => console.log(err.message));
-  }
-
-  onBackClick = () => {
-    // TODO: Change implementation on route integration
-    console.log('Back button clicked!');
-  };
-
-  onMainLogoClick = () => {
-    // TODO: Change implementation on route integration
-    console.log('Main logo clicked!');
-  };
-
-  windowChange = () => {
-    this.screenSize = {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight - 56,
-    };
-  };
-
-  connectedCallback() {
-    super.connectedCallback();
-    window.addEventListener('resize', this.windowChange);
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    window.removeEventListener('resize', this.windowChange);
-  }
-
-  firstUpdated() {
-    // TODO: Change implementation on route integration. Should be replaced by URL path
-    this.fetchProductBySlug('pompa-submersible-flugo-v-6');
-  }
 
   static get styles() {
     return css`
@@ -182,5 +142,63 @@ export class DetailProduct extends LitElement {
           : html`<div>Loading...</div>`}
       </div>
     `;
+  }
+
+  fetchProductBySlug(slug: string) {
+    /**
+     * This will fetch product detail and set to local state if available, else redirect to not found page
+     * TODO: Change implementation on route integration
+     */
+    fetchProductBySlug(slug)
+      .then((product) => (this.product = product))
+      .catch((err: Error) => console.log(err.message));
+  }
+
+  /**
+   * This will fetch SEO metadata for current page
+   */
+  fetchPageSeo(slug: string) {
+    fetchPageSeoAction(slug)
+      .then((pageSeo: PageSeo) => {
+        setTitle(pageSeo.title);
+        setMetaDescription(pageSeo.description);
+      })
+      .catch(() => {
+        setTitle('');
+        setMetaDescription('');
+      });
+  }
+
+  onBackClick = () => {
+    // TODO: Change implementation on route integration
+    console.log('Back button clicked!');
+  };
+
+  onMainLogoClick = () => {
+    // TODO: Change implementation on route integration
+    console.log('Main logo clicked!');
+  };
+
+  windowChange = () => {
+    this.screenSize = {
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight - 56,
+    };
+  };
+
+  connectedCallback() {
+    super.connectedCallback();
+    window.addEventListener('resize', this.windowChange);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('resize', this.windowChange);
+  }
+
+  firstUpdated() {
+    // TODO: Change implementation on route integration. Should be replaced by URL path
+    this.fetchProductBySlug('pompa-submersible-flugo-v-6');
+    this.fetchPageSeo('pompa-sentrifugal');
   }
 }
