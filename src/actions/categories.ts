@@ -35,5 +35,13 @@ const categories: Array<Category> = [
   },
 ];
 
-export const fetchCategories = (typeSlug: string): Array<Category> =>
-  categories.filter((category) => category.tag === typeSlug);
+export const fetchCategories = (typeSlug: string): Promise<Array<Category>> => {
+  const matchedCategories = categories.filter(
+    (category) => category.tag === typeSlug
+  );
+  return new Promise((resolve, reject) => {
+    matchedCategories.length > 0
+      ? resolve(matchedCategories)
+      : reject(new Error('No matched categories'));
+  });
+};

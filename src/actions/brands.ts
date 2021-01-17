@@ -35,5 +35,11 @@ const brands: Array<Brand> = [
   },
 ];
 
-export const fetchBrands = (typeSlug: string): Array<Brand> =>
-  brands.filter((brand) => brand.tag === typeSlug);
+export const fetchBrands = (typeSlug: string): Promise<Array<Brand>> => {
+  const matchedBrands = brands.filter((brand) => brand.tag === typeSlug);
+  return new Promise((resolve, reject) => {
+    matchedBrands.length > 0
+      ? resolve(matchedBrands)
+      : reject(new Error('No matched brands'));
+  });
+};

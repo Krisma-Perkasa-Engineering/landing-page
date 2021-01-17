@@ -2,6 +2,7 @@ import {
   LitElement,
   html,
   customElement,
+  property,
   internalProperty,
   css,
 } from 'lit-element';
@@ -27,13 +28,16 @@ import logo3 from '../../assets/images/carousel/banner-pump-3.jpg';
 
 @customElement('kpe-home')
 export class Home extends LitElement {
+  @property({type: Object})
+  document: Document = document;
+
   @internalProperty()
   screenSize: ScreenSize = {
-    width: document.documentElement.clientWidth,
+    width: this.document.documentElement.clientWidth,
     height:
-      document.documentElement.clientWidth > 1024
-        ? document.documentElement.clientHeight - 112
-        : document.documentElement.clientHeight - 56,
+      this.document.documentElement.clientWidth > 1024
+        ? this.document.documentElement.clientHeight - 112
+        : this.document.documentElement.clientHeight - 56,
   };
 
   static get styles() {
@@ -104,11 +108,11 @@ export class Home extends LitElement {
 
   windowChange = () => {
     this.screenSize = {
-      width: document.documentElement.clientWidth,
+      width: this.document.documentElement.clientWidth,
       height:
-        document.documentElement.clientWidth > 1024
-          ? document.documentElement.clientHeight - 112
-          : document.documentElement.clientHeight - 56,
+        this.document.documentElement.clientWidth > 1024
+          ? this.document.documentElement.clientHeight - 112
+          : this.document.documentElement.clientHeight - 56,
     };
   };
 

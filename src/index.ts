@@ -1,7 +1,6 @@
 import 'regenerator-runtime/runtime';
 import {LitElement, html, customElement, css} from 'lit-element';
 
-// import './pages/home/home.ts';
 import './components/Router/router.ts';
 
 @customElement('kpe-root')
@@ -24,10 +23,6 @@ export class Root extends LitElement {
   }
 
   render() {
-    return html`
-      <div>
-        <div id="main"></div>
-      </div>
-    `;
+    return html` <div id="main"></div> `;
   }
 }

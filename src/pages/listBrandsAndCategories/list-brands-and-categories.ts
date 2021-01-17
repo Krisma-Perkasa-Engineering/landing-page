@@ -15,7 +15,7 @@ import './list-items';
 
 import {fetchCategories as fetchCategoriesAction} from '../../actions/categories';
 import {fetchBrands as fetchBrandsAction} from '../../actions/brands';
-import {Category as CategoryDTO} from '../../actions/types';
+import {Category as CategoryDTO, Brand as BrandDTO} from '../../actions/types';
 import {ScreenSize} from '../../components/types';
 import {Item} from './types';
 import {setTitle, setMetaDescription} from '../../helpers/seo/seo';
@@ -108,19 +108,27 @@ export class ListBrandsAndCategories extends LitElement {
   /**
    * This will fetch list of categories and set to local state
    */
-  async fetchCategories(typeSlug: string) {
-    const categories: Array<CategoryDTO> = await fetchCategoriesAction(
-      typeSlug
-    );
-    this.listCategories = categories;
+  fetchCategories(typeSlug: string) {
+    fetchCategoriesAction(typeSlug)
+      .then((categories: Array<CategoryDTO>) => {
+        this.listCategories = categories;
+      })
+      .catch(() => {
+        this.listCategories = [];
+      });
   }
 
   /**
    * This will fetch list of brands and set to local state
    */
-  async fetchBrands(typeSlug: string) {
-    const brands: Array<CategoryDTO> = await fetchBrandsAction(typeSlug);
-    this.listBrands = brands;
+  fetchBrands(typeSlug: string) {
+    fetchBrandsAction(typeSlug)
+      .then((brands: Array<BrandDTO>) => {
+        this.listBrands = brands;
+      })
+      .catch(() => {
+        this.listBrands = [];
+      });
   }
 
   /**
@@ -173,10 +181,10 @@ export class ListBrandsAndCategories extends LitElement {
     this.window.removeEventListener('resize', this.windowChange);
   }
 
-  async firstUpdated() {
+  firstUpdated() {
     const typeSlug = this.location.pathname.split('/').pop();
-    await this.fetchCategories(typeSlug);
-    await this.fetchBrands(typeSlug);
+    this.fetchCategories(typeSlug);
+    this.fetchBrands(typeSlug);
     this.fetchPageSeo(typeSlug);
   }
 }
