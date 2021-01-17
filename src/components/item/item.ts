@@ -14,10 +14,15 @@ export class Item extends LitElement {
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16),
           0px 3px 6px rgba(0, 0, 0, 0.23);
         padding-bottom: 16px;
+        cursor: pointer;
       }
       h2 {
         font-size: 16px;
         text-align: center;
+        font-size: var(--kpe-h2-font-size);
+        font-weight: var(--kpe-h2-font-weight);
+        margin-left: 16px;
+        margin-right: 16px;
       }
     `;
   }

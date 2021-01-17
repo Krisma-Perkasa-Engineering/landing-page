@@ -5,4 +5,6 @@ export type ScreenSize = {
   height: number;
 };
 
-export type ProductSummary = Item;
+export type ProductSummary = Item & {
+  slug: string;
+};

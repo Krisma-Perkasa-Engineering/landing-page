@@ -87,13 +87,19 @@ const products: Array<Product> = [
 
 export const fetchProductsSummaryByTag = (
   tagSlug: string
-): Array<ProductSummary> =>
-  products
+): Promise<Array<ProductSummary>> => {
+  const productsSummary = products
     .filter((product) => product.tags.includes(tagSlug))
     .map((product) => {
       const {description, specifications, tags, ...rest} = product;
       return rest;
     });
+  return new Promise((resolve, reject) => {
+    productsSummary.length > 0
+      ? resolve(productsSummary)
+      : reject(new Error('Product summary not found'));
+  });
+};
 
 export const fetchProductBySlug = (slug: string): Promise<Product> => {
   const product = products.find((product) => product.slug === slug);

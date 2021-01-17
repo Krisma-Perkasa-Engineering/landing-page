@@ -37,6 +37,8 @@ export class ListItems extends LitElement {
     return css`
       h2 {
         text-align: center;
+        font-size: var(--kpe-h2-font-size);
+        font-weight: var(--kpe-h2-font-weight);
       }
     `;
   }

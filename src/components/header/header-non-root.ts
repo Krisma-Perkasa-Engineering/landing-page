@@ -23,6 +23,8 @@ export class Header extends LitElement {
       }
       h1 {
         align-self: center;
+        font-size: var(--kpe-h1-font-size);
+        font-weight: var(--kpe-h1-font-weight);
       }
     `;
   }

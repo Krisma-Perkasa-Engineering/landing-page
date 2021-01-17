@@ -28,7 +28,6 @@ const pageSeos: Array<PageSeo> = [
 
 export const fetchPageSeo = (slug: string): Promise<PageSeo> => {
   const pageSeo = pageSeos.find((pageSeo) => pageSeo.slug === slug);
-  console.log(pageSeo);
   return new Promise((resolve, reject) =>
     pageSeo ? resolve(pageSeo) : reject(new Error('Seo data not found'))
   );

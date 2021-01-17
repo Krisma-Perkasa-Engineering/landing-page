@@ -13,7 +13,7 @@ const tags: Array<Tag> = [
       path: franklinElectricLogo,
       alt: 'Pompa sentrifugal',
     },
-    tag: 'pompa',
+    tag: 'pompa-industri',
   },
   {
     id: 'f0f11dda-50a5-4a61-a5ee-0262e00b0658',
@@ -25,7 +25,7 @@ const tags: Array<Tag> = [
       path: franklinElectricLogo,
       alt: 'Pompa submersible',
     },
-    tag: 'pompa',
+    tag: 'pompa-industri',
   },
   {
     id: '861f62ba-4a4e-47f0-a6cf-9d136bc8df2a',
@@ -37,7 +37,7 @@ const tags: Array<Tag> = [
       path: franklinElectricLogo,
       alt: 'Single phase motor',
     },
-    tag: 'motor',
+    tag: 'motor-elektrik',
   },
   {
     id: '7235e427-cd5f-42db-8fa3-f02d267425fa',
@@ -53,7 +53,7 @@ const tags: Array<Tag> = [
       path: franklinElectricLogo,
       alt: 'Franklin electric',
     },
-    tag: 'pompa',
+    tag: 'pompa-industri',
   },
   {
     id: 'a407e197-12f5-4fde-b4c5-56f98e7197fa',
@@ -65,7 +65,7 @@ const tags: Array<Tag> = [
       path: franklinElectricLogo,
       alt: 'Flugo',
     },
-    tag: 'pompa',
+    tag: 'pompa-industri',
   },
   {
     id: 'c1688848-cf3c-4e31-adc2-a07b42d45114',
@@ -77,10 +77,13 @@ const tags: Array<Tag> = [
       path: franklinElectricLogo,
       alt: 'Alliance motori',
     },
-    tag: 'motor',
+    tag: 'motor-elektrik',
   },
 ];
 
-export const fetchTag = (tagSlug: string) => {
-  return tags.find((tag) => tag.slug === tagSlug);
+export const fetchTag = (tagSlug: string): Promise<Tag> => {
+  const tag = tags.find((tag) => tag.slug === tagSlug);
+  return new Promise((resolve, reject) => {
+    tag ? resolve(tag) : reject(new Error('Tag not found'));
+  });
 };

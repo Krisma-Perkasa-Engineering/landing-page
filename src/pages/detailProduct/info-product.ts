@@ -10,9 +10,7 @@ import {
 @customElement('kpe-info-product')
 export class InfoProduct extends LitElement {
   @property({type: Boolean})
-  isMobile: boolean = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
+  isMobile: boolean;
 
   @property({type: Object})
   product: ProductDetail;
@@ -77,6 +75,22 @@ export class InfoProduct extends LitElement {
         height: 100%;
         text-decoration: none;
         color: inherit;
+      }
+
+      h1 {
+        font-size: var(--kpe-h1-font-size);
+        font-weight: var(--kpe-h1-font-weight);
+      }
+
+      h2 {
+        font-size: var(--kpe-h2-font-size);
+        font-weight: var(--kpe-h2-font-weight);
+      }
+
+      p,
+      a {
+        font-size: var(--kpe-p-font-size);
+        line-height: var(--kpe-p-line-height);
       }
     `;
   }

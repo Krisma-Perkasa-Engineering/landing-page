@@ -49,6 +49,9 @@ export class Carousel extends LitElement {
         transform: translate(-50%, -50%);
 
         font-family: 'Poppins', 'Roboto', 'Arial';
+
+        font-size: var(--kpe-h1-font-size);
+        font-weight: var(--kpe-h1-font-weight);
       }
 
       #previous-button {

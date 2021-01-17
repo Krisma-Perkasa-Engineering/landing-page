@@ -2,6 +2,7 @@ import {
   LitElement,
   html,
   customElement,
+  property,
   internalProperty,
   css,
 } from 'lit-element';
@@ -26,15 +27,30 @@ import BackIcon from '../../assets/images/icons/back.svg';
 
 @customElement('kpe-detail-product')
 export class DetailProduct extends LitElement {
+  @property({type: Object})
+  window: Window = window;
+
+  @property({type: Object})
+  history: History = this.window.history;
+
+  @property({type: Object})
+  location: Location = this.window.location;
+
+  @property({type: Object})
+  navigator: Navigator = navigator;
+
+  @property({type: Object})
+  document: Document = document;
+
   @internalProperty()
   screenSize: ScreenSize = {
-    width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight - 56,
+    width: this.document.documentElement.clientWidth,
+    height: this.document.documentElement.clientHeight - 56,
   };
 
   @internalProperty()
   isMobile: boolean = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
+    this.navigator.userAgent
   );
 
   @internalProperty()
@@ -130,7 +146,7 @@ export class DetailProduct extends LitElement {
                   alt="${this.product.image.alt}"
                 />
                 <kpe-info-product
-                  .isMobile="${this.isMobile}"
+                  ?isMobile="${this.isMobile}"
                   .product="${this.product}"
                   .corporate="${this.corporate}"
                   .corporateTemplate="${this.corporateTemplate}"
@@ -144,14 +160,16 @@ export class DetailProduct extends LitElement {
     `;
   }
 
+  /**
+   * This will fetch product detail and set to local state if available, else redirect to not found page
+   */
   fetchProductBySlug(slug: string) {
-    /**
-     * This will fetch product detail and set to local state if available, else redirect to not found page
-     * TODO: Change implementation on route integration
-     */
     fetchProductBySlug(slug)
       .then((product) => (this.product = product))
-      .catch((err: Error) => console.log(err.message));
+      .catch((err: Error) => {
+        this.history.replaceState({errorMessage: err.message}, null, '/404');
+        this.window.dispatchEvent(new PopStateEvent('popstate'));
+      });
   }
 
   /**
@@ -170,35 +188,34 @@ export class DetailProduct extends LitElement {
   }
 
   onBackClick = () => {
-    // TODO: Change implementation on route integration
-    console.log('Back button clicked!');
+    this.history.back();
   };
 
   onMainLogoClick = () => {
-    // TODO: Change implementation on route integration
-    console.log('Main logo clicked!');
+    this.history.pushState({}, null, '/');
+    this.window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   windowChange = () => {
     this.screenSize = {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight - 56,
+      width: this.document.documentElement.clientWidth,
+      height: this.document.documentElement.clientHeight - 56,
     };
   };
 
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('resize', this.windowChange);
+    this.window.addEventListener('resize', this.windowChange);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener('resize', this.windowChange);
+    this.window.removeEventListener('resize', this.windowChange);
   }
 
   firstUpdated() {
-    // TODO: Change implementation on route integration. Should be replaced by URL path
-    this.fetchProductBySlug('pompa-submersible-flugo-v-6');
-    this.fetchPageSeo('pompa-sentrifugal');
+    const productSlug = this.location.pathname.split('/').pop();
+    this.fetchProductBySlug(productSlug);
+    this.fetchPageSeo(productSlug);
   }
 }
