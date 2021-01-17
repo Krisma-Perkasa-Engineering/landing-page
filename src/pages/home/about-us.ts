@@ -9,6 +9,16 @@ export class AboutUs extends LitElement {
         font-family: 'Roboto', 'Poppins', 'Arial';
         margin: 0 32px;
       }
+
+      h1 {
+        font-size: var(--kpe-h1-font-size);
+        font-weight: var(--kpe-h1-font-weight);
+      }
+
+      p {
+        font-size: var(--kpe-p-font-size);
+        line-height: var(--kpe-p-line-height);
+      }
     `;
   }
   render() {

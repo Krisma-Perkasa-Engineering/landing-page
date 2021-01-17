@@ -11,7 +11,7 @@ const brands: Array<Brand> = [
       path: franklinElectricLogo,
       alt: 'Franklin electric',
     },
-    tag: 'pompa',
+    tag: 'pompa-industri',
   },
   {
     id: 'a407e197-12f5-4fde-b4c5-56f98e7197fa',
@@ -21,7 +21,7 @@ const brands: Array<Brand> = [
       path: franklinElectricLogo,
       alt: 'Flugo',
     },
-    tag: 'pompa',
+    tag: 'pompa-industri',
   },
   {
     id: 'c1688848-cf3c-4e31-adc2-a07b42d45114',
@@ -31,7 +31,7 @@ const brands: Array<Brand> = [
       path: franklinElectricLogo,
       alt: 'Alliance motori',
     },
-    tag: 'motor',
+    tag: 'motor-elektrik',
   },
 ];
 

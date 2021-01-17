@@ -11,7 +11,7 @@ const categories: Array<Category> = [
       path: franklinElectricLogo,
       alt: 'Pompa sentrifugal',
     },
-    tag: 'pompa',
+    tag: 'pompa-industri',
   },
   {
     id: 'f0f11dda-50a5-4a61-a5ee-0262e00b0658',
@@ -21,7 +21,7 @@ const categories: Array<Category> = [
       path: franklinElectricLogo,
       alt: 'Pompa submersible',
     },
-    tag: 'pompa',
+    tag: 'pompa-industri',
   },
   {
     id: '861f62ba-4a4e-47f0-a6cf-9d136bc8df2a',
@@ -31,7 +31,7 @@ const categories: Array<Category> = [
       path: franklinElectricLogo,
       alt: 'Single phase motor',
     },
-    tag: 'motor',
+    tag: 'motor-elektrik',
   },
 ];
 

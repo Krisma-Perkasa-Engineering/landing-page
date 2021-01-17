@@ -2,6 +2,7 @@ import {
   LitElement,
   html,
   customElement,
+  property,
   internalProperty,
   css,
 } from 'lit-element';
@@ -23,12 +24,26 @@ import {PageSeo} from '../../actions/types';
 
 import backIcon from '../../assets/images/icons/back.svg';
 
+import {toTitleCase} from '../../helpers/toTiltleCase/toTitleCase';
+
 @customElement('kpe-list-brands-and-categories')
 export class ListBrandsAndCategories extends LitElement {
+  @property({type: Object})
+  window: Window = window;
+
+  @property({type: Object})
+  history: History = this.window.history;
+
+  @property({type: Object})
+  location: Location = this.window.location;
+
+  @property({type: Object})
+  document: Document = document;
+
   @internalProperty()
   screenSize: ScreenSize = {
-    width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight - 56,
+    width: this.document.documentElement.clientWidth,
+    height: this.document.documentElement.clientHeight - 56,
   };
 
   @internalProperty()
@@ -44,11 +59,16 @@ export class ListBrandsAndCategories extends LitElement {
     return css`
       h1 {
         text-align: center;
+        font-size: var(--kpe-h1-font-size);
+        font-weight: var(--kpe-h1-font-weight);
       }
     `;
   }
 
   render() {
+    const title = toTitleCase(
+      this.location.pathname.split('/').pop().replace('-', ' ')
+    );
     return html`
       <div>
         ${this.screenSize.width > 1024
@@ -60,14 +80,12 @@ export class ListBrandsAndCategories extends LitElement {
                 url: backIcon,
                 alt: 'Back button',
               }}
-              .title=${'Pompa Industri'}
+              .title=${title}
               @icon-click=${this.onBackClick}
             ></kpe-header-dynamic>`}
         <content-container .screenSize=${this.screenSize}>
           <main>
-            ${this.screenSize.width > 1024
-              ? html`<h1>Pompa Industri</h1>`
-              : html``}
+            ${this.screenSize.width > 1024 ? html`<h1>${title}</h1>` : html``}
             <kpe-list-items
               .screenSize=${this.screenSize}
               .listTitle=${'Merek'}
@@ -121,40 +139,44 @@ export class ListBrandsAndCategories extends LitElement {
   }
 
   onItemClick = (itemEvent: CustomEvent) => {
-    console.log(itemEvent.detail.value);
+    this.history.pushState(
+      {},
+      null,
+      `${this.location.pathname}/${itemEvent.detail.value}`
+    );
+    this.window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   onBackClick = () => {
-    // TODO: Change implementation on route integration
-    console.log('Back button clicked!');
+    this.history.back();
   };
 
   onMainLogoClick = () => {
-    // TODO: Change implementation on route integration
-    console.log('Main logo clicked!');
+    this.history.pushState({}, null, '/');
+    this.window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
   windowChange = () => {
     this.screenSize = {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight - 56,
+      width: this.document.documentElement.clientWidth,
+      height: this.document.documentElement.clientHeight - 56,
     };
   };
 
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('resize', this.windowChange);
+    this.window.addEventListener('resize', this.windowChange);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener('resize', this.windowChange);
+    this.window.removeEventListener('resize', this.windowChange);
   }
 
   async firstUpdated() {
-    // TODO: Change implementation on route integration
-    await this.fetchCategories('pompa');
-    await this.fetchBrands('pompa');
-    this.fetchPageSeo('pompa-industri');
+    const typeSlug = this.location.pathname.split('/').pop();
+    await this.fetchCategories(typeSlug);
+    await this.fetchBrands(typeSlug);
+    this.fetchPageSeo(typeSlug);
   }
 }

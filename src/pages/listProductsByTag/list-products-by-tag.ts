@@ -2,6 +2,7 @@ import {
   LitElement,
   html,
   customElement,
+  property,
   internalProperty,
   css,
 } from 'lit-element';
@@ -26,10 +27,22 @@ import backIcon from '../../assets/images/icons/back.svg';
 
 @customElement('kpe-list-products-by-tag')
 export class ListProductsBytag extends LitElement {
+  @property({type: Object})
+  window: Window = window;
+
+  @property({type: Object})
+  history: History = this.window.history;
+
+  @property({type: Object})
+  location: Location = this.window.location;
+
+  @property({type: Object})
+  document: Document = document;
+
   @internalProperty()
   screenSize: ScreenSize = {
-    width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight - 56,
+    width: this.document.documentElement.clientWidth,
+    height: this.document.documentElement.clientHeight - 56,
   };
 
   @internalProperty()
@@ -48,11 +61,14 @@ export class ListProductsBytag extends LitElement {
       img {
         min-height: 53px;
         max-height: 61px;
+        max-width: 100%;
         display: block;
         margin: auto;
       }
       p {
         text-align: center;
+        font-size: var(--kpe-p-font-size);
+        line-height: var(--kpe-p-line-height);
       }
     `;
   }
@@ -61,13 +77,16 @@ export class ListProductsBytag extends LitElement {
     return html`
       <div>
         ${this.screenSize.width > 1024
-          ? html`<kpe-header></kpe-header>`
+          ? html`<kpe-header
+              @main-logo-click=${this.onMainLogoClick}
+            ></kpe-header>`
           : html`<kpe-header-dynamic
               .icon=${{
                 url: backIcon,
                 alt: 'Back button',
               }}
               .title=${this.tag.name}
+              @icon-click=${this.onBackClick}
             ></kpe-header-dynamic>`}
         <content-container .screenSize=${this.screenSize}>
           <main>
@@ -80,7 +99,11 @@ export class ListProductsBytag extends LitElement {
             <p>${this.tag.description}</p>
             <kpe-items>
               ${this.products.map((product) => {
-                return html`<kpe-item slot="item" .item=${product}></kpe-item>`;
+                return html`<kpe-item
+                  slot="item"
+                  .item=${product}
+                  @click=${() => this.onItemClick(product.slug)}
+                ></kpe-item>`;
               })}
             </kpe-items>
           </main>
@@ -93,30 +116,29 @@ export class ListProductsBytag extends LitElement {
   /**
    * This will fetch tag detail and set to local state
    */
-  async fetchTag(tagSlug: string) {
-    const tag: TagDTO = await fetchTagAction(tagSlug);
-    if (!tag) {
-      // Should be redirected to 404 page not found
-      this.tag = {
-        id: '',
-        name: 'Kategori tidak ditemukan',
-        description:
-          'Maaf, kami tidak memiliki produk dengan kategori yang anda cari.',
-        slug: '',
-      };
-    } else {
-      this.tag = tag;
-    }
+  fetchTag(tagSlug: string) {
+    fetchTagAction(tagSlug)
+      .then((tag: TagDTO) => {
+        this.tag = tag;
+      })
+      .catch((err: Error) => {
+        this.history.replaceState({errorMessage: err.message}, null, '/404');
+        this.window.dispatchEvent(new PopStateEvent('popstate'));
+      });
   }
 
   /**
    * This will fetch list of products by tag and set to local state
    */
-  async fetchProductsSummaryByTag(tagSlug: string) {
-    const products: Array<ProductSummary> = await fetchProductsSummaryByTagAction(
-      tagSlug
-    );
-    this.products = products;
+  fetchProductsSummaryByTag(tagSlug: string) {
+    fetchProductsSummaryByTagAction(tagSlug)
+      .then((products: Array<ProductSummary>) => {
+        this.products = products;
+      })
+      .catch((err: Error) => {
+        this.history.replaceState({errorMessage: err.message}, null, '/404');
+        this.window.dispatchEvent(new PopStateEvent('popstate'));
+      });
   }
 
   /**
@@ -134,27 +156,41 @@ export class ListProductsBytag extends LitElement {
       });
   }
 
+  onItemClick = (slug: string) => {
+    this.history.pushState({}, null, `${this.location.pathname}/${slug}`);
+    this.window.dispatchEvent(new PopStateEvent('popstate'));
+  };
+
+  onBackClick = () => {
+    this.history.back();
+  };
+
+  onMainLogoClick = () => {
+    this.history.pushState({}, null, '/');
+    this.window.dispatchEvent(new PopStateEvent('popstate'));
+  };
+
   windowChange = () => {
     this.screenSize = {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight - 56,
+      width: this.document.documentElement.clientWidth,
+      height: this.document.documentElement.clientHeight - 56,
     };
   };
 
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('resize', this.windowChange);
+    this.window.addEventListener('resize', this.windowChange);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener('resize', this.windowChange);
+    this.window.removeEventListener('resize', this.windowChange);
   }
 
   async firstUpdated() {
-    // TODO: Change implementation on route integration
-    await this.fetchTag('pompa-sentrifugal');
-    await this.fetchProductsSummaryByTag('pompa-sentrifugal');
-    this.fetchPageSeo('pompa-sentrifugal');
+    const typeSlug = this.location.pathname.split('/').pop();
+    this.fetchTag(typeSlug);
+    this.fetchProductsSummaryByTag(typeSlug);
+    this.fetchPageSeo(typeSlug);
   }
 }

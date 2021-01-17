@@ -8,12 +8,19 @@ export class Footer extends LitElement {
         text-align: center;
         font-family: 'Roboto', 'Poppins', 'Arial';
       }
+
+      p {
+        font-size: var(--kpe-p-font-size);
+        line-height: var(--kpe-p-line-height);
+      }
     `;
   }
   render() {
     return html`
       <footer>
-        <p>Copyright 2020 CV. Krisma Perkasa Engineering</p>
+        <p>
+          Copyright ${new Date().getFullYear()} CV. Krisma Perkasa Engineering
+        </p>
       </footer>
     `;
   }
