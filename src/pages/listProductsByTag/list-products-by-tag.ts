@@ -136,8 +136,7 @@ export class ListProductsBytag extends LitElement {
         this.products = products;
       })
       .catch((err: Error) => {
-        this.history.replaceState({errorMessage: err.message}, null, '/404');
-        this.window.dispatchEvent(new PopStateEvent('popstate'));
+        this.products = [];
       });
   }
 
@@ -187,7 +186,7 @@ export class ListProductsBytag extends LitElement {
     this.window.removeEventListener('resize', this.windowChange);
   }
 
-  async firstUpdated() {
+  firstUpdated() {
     const typeSlug = this.location.pathname.split('/').pop();
     this.fetchTag(typeSlug);
     this.fetchProductsSummaryByTag(typeSlug);
