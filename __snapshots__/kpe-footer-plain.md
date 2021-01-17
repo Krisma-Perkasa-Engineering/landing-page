@@ -5,7 +5,7 @@
 ```html
 <footer>
   <p>
-    Copyright 2020 CV. Krisma Perkasa Engineering
+    Copyright 2021 CV. Krisma Perkasa Engineering
   </p>
 </footer>
 
