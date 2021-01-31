@@ -3,17 +3,20 @@
 #### `render item content`
 
 ```html
-<div class="item-container">
+<a
+  class="item-container"
+  href="undefined"
+>
   <img
     alt="Pompa sentrifugal vertikal multistage SS"
-    height="240"
+    height="208"
     src="https://path.to.image.com/image"
-    width="240"
+    width="208"
   >
   <h2>
     Pompa Sentrifugal Vertikal multistage SS
   </h2>
-</div>
+</a>
 
 ```
 

@@ -7,6 +7,6 @@ export type Tag = {
   id: string;
   name: string;
   description: string;
-  imageDescription?: Image;
   slug: string;
+  image?: Image;
 };

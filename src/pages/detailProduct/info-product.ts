@@ -101,13 +101,16 @@ export class InfoProduct extends LitElement {
         <div class="product-title">
           <h1>${this.product.name}</h1>
         </div>
-        <div class="specification">
-          <h2>Spesifikasi</h2>
-          ${this.product.specifications.map(
-            (specification) =>
-              html`<p>${specification.name}: ${specification.value}</p>`
-          )}
-        </div>
+        ${this.product.specifications.length > 0
+          ? html`<div class="specification">
+              <h2>Spesifikasi</h2>
+              ${this.product.specifications.map(
+                (specification) =>
+                  html`<p>${specification.name}: ${specification.value}</p>`
+              )}
+            </div>`
+          : html``}
+
         <div class="contacts">
           <div class="contact whatsapp">
             <a
