@@ -12,10 +12,17 @@ type ItemSummary = {
   id: string;
   name: string;
   slug: string;
+};
+
+type ItemSummaryImageMandatory = ItemSummary & {
   image: Image;
 };
 
-export type ProductSummary = ItemSummary;
+type ItemSummaryImageOptional = ItemSummary & {
+  image?: Image;
+};
+
+export type ProductSummary = ItemSummaryImageMandatory;
 
 export type Product = ProductSummary & {
   description: string;
@@ -23,17 +30,16 @@ export type Product = ProductSummary & {
   tags: Array<string>;
 };
 
-export type Tag = (Category | Brand) & {
+export type Tag = ItemSummaryImageOptional & {
   description: string;
-  imageDescription?: Image;
 };
 
-export type Category = ItemSummary & {
+export type Category = ItemSummaryImageMandatory & {
   tag: string;
 };
 
-export type Brand = ItemSummary & {
-  tag: string;
+export type Brand = ItemSummaryImageMandatory & {
+  tags: Array<string>;
 };
 
 export type PageSeo = {

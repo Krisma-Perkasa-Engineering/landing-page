@@ -64,6 +64,7 @@ export class ListProductsBytag extends LitElement {
         max-width: 100%;
         display: block;
         margin: auto;
+        object-fit: contain;
       }
       p {
         text-align: center;
@@ -74,6 +75,10 @@ export class ListProductsBytag extends LitElement {
   }
 
   render() {
+    const baseTargetPath = `${this.location.pathname
+      .split('/')
+      .slice(0, -1)
+      .join('/')}/product`;
     return html`
       <div>
         ${this.screenSize.width > 1024
@@ -90,10 +95,10 @@ export class ListProductsBytag extends LitElement {
             ></kpe-header-dynamic>`}
         <content-container .screenSize=${this.screenSize}>
           <main>
-            ${this.tag.imageDescription
+            ${this.tag.image
               ? html`<img
-                  src=${this.tag.imageDescription.path}
-                  alt=${this.tag.imageDescription.path}
+                  src=${this.tag.image.path}
+                  alt=${this.tag.image.path}
                 />`
               : html``}
             <p>${this.tag.description}</p>
@@ -102,6 +107,7 @@ export class ListProductsBytag extends LitElement {
                 return html`<kpe-item
                   slot="item"
                   .item=${product}
+                  .targetPath="${baseTargetPath}/${product.slug}"
                   @click=${() => this.onItemClick(product.slug)}
                 ></kpe-item>`;
               })}
@@ -130,8 +136,8 @@ export class ListProductsBytag extends LitElement {
   /**
    * This will fetch list of products by tag and set to local state
    */
-  fetchProductsSummaryByTag(tagSlug: string) {
-    fetchProductsSummaryByTagAction(tagSlug)
+  fetchProductsSummaryByTag(tagSlug: string, mainCategory: string) {
+    fetchProductsSummaryByTagAction(tagSlug, mainCategory)
       .then((products: Array<ProductSummary>) => {
         this.products = products;
       })
@@ -156,7 +162,14 @@ export class ListProductsBytag extends LitElement {
   }
 
   onItemClick = (slug: string) => {
-    this.history.pushState({}, null, `${this.location.pathname}/${slug}`);
+    this.history.pushState(
+      {},
+      null,
+      `${this.location.pathname
+        .split('/')
+        .slice(0, -1)
+        .join('/')}/product/${slug}`
+    );
     this.window.dispatchEvent(new PopStateEvent('popstate'));
   };
 
@@ -188,8 +201,9 @@ export class ListProductsBytag extends LitElement {
 
   firstUpdated() {
     const typeSlug = this.location.pathname.split('/').pop();
+    const mainCategory = this.location.pathname.split('/').slice(-2)[0];
     this.fetchTag(typeSlug);
-    this.fetchProductsSummaryByTag(typeSlug);
-    this.fetchPageSeo(typeSlug);
+    this.fetchProductsSummaryByTag(typeSlug, mainCategory);
+    this.fetchPageSeo(`${mainCategory}/${typeSlug}`);
   }
 }

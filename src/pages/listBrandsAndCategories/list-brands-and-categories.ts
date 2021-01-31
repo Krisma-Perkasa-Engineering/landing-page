@@ -90,12 +90,14 @@ export class ListBrandsAndCategories extends LitElement {
               .screenSize=${this.screenSize}
               .listTitle=${'Merek'}
               .listItems=${this.listBrands}
+              .basePathTarget=${this.location.pathname}
               @item-click=${this.onItemClick}
             ></kpe-list-items>
             <kpe-list-items
               .screenSize=${this.screenSize}
               .listTitle=${'Jenis'}
               .listItems=${this.listCategories}
+              .basePathTarget=${this.location.pathname}
               @item-click=${this.onItemClick}
             ></kpe-list-items>
           </main>

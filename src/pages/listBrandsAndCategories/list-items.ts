@@ -20,18 +20,8 @@ export class ListItems extends LitElement {
   @property({type: String})
   listTitle: string = '';
 
-  onItemClick(itemSlug: string) {
-    this.dispatchEvent(
-      new CustomEvent('item-click', {
-        bubbles: true,
-        composed: true,
-        detail: {
-          message: 'item-click happened.',
-          value: itemSlug,
-        },
-      })
-    );
-  }
+  @property({type: String})
+  basePathTarget: string = '';
 
   static get styles() {
     return css`
@@ -51,9 +41,9 @@ export class ListItems extends LitElement {
           ${this.listItems.map((item) => {
             const {slug, ...restItem} = item;
             return html`<kpe-item
-              @click=${() => this.onItemClick(slug)}
               slot="item"
               .item=${restItem}
+              .targetPath="${this.basePathTarget}/${slug}"
             ></kpe-item>`;
           })}
         </kpe-items>

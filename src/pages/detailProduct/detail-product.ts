@@ -97,12 +97,18 @@ export class DetailProduct extends LitElement {
         main {
           display: flex;
         }
-        main > img {
+        main > div {
+          flex-grow: 1;
           margin-right: 16px;
           margin-left: 0;
           width: 100%;
         }
+        main > div > img {
+          max-width: 100%;
+        }
         main > kpe-info-product {
+          flex-grow: 1;
+          width: 100%;
           margin-left: 16px;
         }
       }
@@ -141,10 +147,12 @@ export class DetailProduct extends LitElement {
         ${this.product
           ? html` <content-container .screenSize=${this.screenSize}>
               <main>
-                <img
-                  src="${this.product.image.path}"
-                  alt="${this.product.image.alt}"
-                />
+                <div>
+                  <img
+                    src="${this.product.image.path}"
+                    alt="${this.product.image.alt}"
+                  />
+                </div>
                 <kpe-info-product
                   ?isMobile="${this.isMobile}"
                   .product="${this.product}"
@@ -216,6 +224,6 @@ export class DetailProduct extends LitElement {
   firstUpdated() {
     const productSlug = this.location.pathname.split('/').pop();
     this.fetchProductBySlug(productSlug);
-    this.fetchPageSeo(productSlug);
+    this.fetchPageSeo(`product/${productSlug}`);
   }
 }
