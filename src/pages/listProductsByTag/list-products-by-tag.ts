@@ -108,7 +108,6 @@ export class ListProductsBytag extends LitElement {
                   slot="item"
                   .item=${product}
                   .targetPath="${baseTargetPath}/${product.slug}"
-                  @click=${() => this.onItemClick(product.slug)}
                 ></kpe-item>`;
               })}
             </kpe-items>
@@ -160,18 +159,6 @@ export class ListProductsBytag extends LitElement {
         setMetaDescription('');
       });
   }
-
-  onItemClick = (slug: string) => {
-    this.history.pushState(
-      {},
-      null,
-      `${this.location.pathname
-        .split('/')
-        .slice(0, -1)
-        .join('/')}/product/${slug}`
-    );
-    this.window.dispatchEvent(new PopStateEvent('popstate'));
-  };
 
   onBackClick = () => {
     this.history.back();
