@@ -271,10 +271,10 @@ const pageSeos: Array<PageSeo> = [
   },
   {
     id: 'ccd80187-2eae-45f0-a0e6-e2c242db7f87',
-    title: 'Seko diaphragm pump MS1 series | Krisma Perkasa Engineering',
+    title: 'Seko dosing pump MS1 series | Krisma Perkasa Engineering',
     description:
-      'Jual dosing pump seko diaphragm MS1 series bergaransi dan original. Pompa ini cocok digunakan untuk water treatment, pertanian, power generation, industri umum, dan lainnya.',
-    slug: 'product/seko-diaphragm-pump-MS1-series',
+      'Jual seko dosing pump MS1 series bergaransi dan original. Pompa ini cocok digunakan untuk water treatment, pertanian, power generation, industri umum, dan lainnya.',
+    slug: 'product/seko-dosing-pump-MS1-series',
   },
 
   {
@@ -307,8 +307,16 @@ const pageSeos: Array<PageSeo> = [
     title:
       'Alliance gear helical and bevel gearbox AK series | Krisma Perkasa Engineering',
     description:
-      'Jual motor elektrik alliance gear helical and bevel gearbox AK series berkualitas dan original. Motor ini cocok digunakan untuk conveyor, elevator, agitator, crane, crusher, dan lainnya.',
+      'Jual alliance gear helical and bevel gearbox AK series berkualitas dan original. Gearbox ini cocok digunakan untuk conveyor, elevator, agitator, crane, crusher, dan lainnya.',
     slug: 'product/alliance-gear-helical-and-bevel-gearbox-AK-series',
+  },
+  {
+    id: '7226d5be-67c2-4f90-aa42-8c1c1a94038f',
+    title:
+      'Alliance speed reducer worm-gear RV series | Krisma Perkasa Engineering',
+    description:
+      'Jual alliance speed reducer worm-gear RV series berkualitas dan original. Gearbox ini cocok digunakan untuk conveyor, elevator, agitator, crane, crusher, dan lainnya.',
+    slug: 'product/alliance-worm-gear-speed-reducer-RV-series',
   },
   {
     id: '5a6bb3ed-dd2d-4fd1-bced-5beead4db4e2',

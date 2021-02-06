@@ -19,6 +19,7 @@ import pompaPulsafeederGLMSeries from '../assets/images/products/pulsafeeder-glm
 import pompaSekoAKLSeries from '../assets/images/products/seko-akl-series.jpg';
 import pompaSekoMS1Series from '../assets/images/products/seko-ms1-series.jpg';
 import motorAllianceAKSeries from '../assets/images/products/alliance-AK-Series.jpg';
+import motorAllianceRVSeries from '../assets/images/products/alliance-RV-Series.jpg';
 import motorAllianceAY3HSeries from '../assets/images/products/alliance-A-Y3H-series.jpg';
 import motorFE4inch from '../assets/images/products/franklin-electric-4-inch-motor.jpg';
 import motorFE6inch from '../assets/images/products/franklin-electric-6-inch-motor.jpg';
@@ -612,14 +613,14 @@ const products: Array<Product> = [
   },
   {
     id: '0985d562-6f53-4c7c-8884-7cff264a0aa2',
-    name: 'Seko diaphragm pump MS1 series',
+    name: 'Seko dosing pump MS1 series',
     description:
       'Pompa seko ini merupakan dosing pump yang fleksibel, dengan kombinasi pump head dan power yang beragam. Pompa ini memiliki tingkat proteksi IP55. Pompa jenis ini menggunakan teknologi AVS (Assisted Vacuum System) yang membuat pompa ini dapat bekerja dengan flow rate yang tinggi dengan tetap menjaga level noise dan mechanical stress rendah. Beberapa contoh aplikasi yang dapat digunakan, yaitu water treatment, pertanian, power generation, industri umum, dan lainnya.',
     image: {
       path: pompaSekoMS1Series,
-      alt: 'Seko diaphragm pump MS1 series',
+      alt: 'Seko dosing pump MS1 series',
     },
-    slug: 'seko-diaphragm-pump-MS1-series',
+    slug: 'seko-dosing-pump-MS1-series',
     tags: ['pompa-industri', 'dosing-pump', 'seko'],
     specifications: [
       {
@@ -648,7 +649,7 @@ const products: Array<Product> = [
     id: 'c5806e08-ba4b-458c-9e77-3880ef5631e2',
     name: 'Alliance gear helical and bevel gearbox AK series',
     description:
-      'Gearbox alliance ini merupakan motor dengan jenis gear helical. Ukuran yang tersedia sangat beragam, yaitu 37, 47, 57, 67, 77, 87, 97, 107, 127, 157, 167, dan 187. Beberapa aplikasi yang dapat digunakan, yaitu conveyor, elevator, agitator, crane, crusher, dan lainnya.',
+      'Gearbox alliance ini memiliki jenis gear helical. Ukuran yang tersedia sangat beragam, yaitu 37, 47, 57, 67, 77, 87, 97, 107, 127, 157, 167, dan 187. Beberapa aplikasi yang dapat digunakan, yaitu conveyor, elevator, agitator, crane, crusher, dan lainnya.',
     image: {
       path: motorAllianceAKSeries,
       alt: 'Alliance gear helical and bevel gearbox AK series',
@@ -667,6 +668,32 @@ const products: Array<Product> = [
       {
         name: 'Power',
         value: '0.12 ~ 200 kW',
+      },
+    ],
+  },
+  {
+    id: '877b1979-7f81-47f1-80c3-6d37bce8bb38',
+    name: 'Alliance worm-gear speed reducer RV series',
+    description:
+      'Gearbox alliance ini merupakan worm-gear yang berfungsi sebagai speed reducer atau penurun kecepatan. Beberapa jenis yang tersedia untuk tipe ini adalah RV, RV-F1, RVL-S, RV-S, dan RVL. Beberapa aplikasi yang dapat digunakan, yaitu conveyor, elevator, agitator, crane, crusher, dan lainnya.',
+    image: {
+      path: motorAllianceRVSeries,
+      alt: 'Alliance worm-gear speed reducer RV series',
+    },
+    slug: 'alliance-worm-gear-speed-reducer-RV-series',
+    tags: ['motor-elektrik', 'gearbox', 'alliance-motori'],
+    specifications: [
+      {
+        name: 'M2Max',
+        value: '@1400 rpm = 18000Nm',
+      },
+      {
+        name: 'Ratio',
+        value: '1.3 ~ 27001',
+      },
+      {
+        name: 'Power',
+        value: '0.12 ~ 160 kW',
       },
     ],
   },
