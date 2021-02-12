@@ -1,3 +1,5 @@
 # Allow all
 User-agent: *
 Allow: /
+
+Sitemap: https://www.krismaperkasa.com/sitemap.xml
