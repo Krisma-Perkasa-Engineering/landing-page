@@ -95,9 +95,4 @@ export class OurProduct extends LitElement {
       </article>
     `;
   }
-
-  onItemClick = (slug: string) => {
-    this.history.pushState({}, null, slug);
-    this.window.dispatchEvent(new PopStateEvent('popstate'));
-  };
 }
