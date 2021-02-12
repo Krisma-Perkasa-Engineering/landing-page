@@ -6,7 +6,7 @@ on:
       - released
 
 jobs:
-  publish-beta:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,6 +17,7 @@ jobs:
       - run: yarn install
       - run: yarn build
       - run: cp conf/robots.txt dist/robots.txt
+      - run: cp conf/sitemap.xml dist/sitemap.xml
       - run: cp conf/_redirects dist/_redirects
       - name: Deploy production application to netlify
         uses: netlify/actions/cli@master
