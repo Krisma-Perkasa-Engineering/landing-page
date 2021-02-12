@@ -31,6 +31,12 @@ export class OurProduct extends LitElement {
         justify-content: space-evenly;
       }
 
+      a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+      }
+
       .section-container {
         padding-top: 16px;
         margin-bottom: 32px;
@@ -69,28 +75,22 @@ export class OurProduct extends LitElement {
       <article>
         <h1>Produk Kami</h1>
         <div id="container">
-          <div
-            class="section-container"
-            @click=${() => this.onItemClick('pompa-industri')}
-          >
+          <a href="/pompa-industri" class="section-container">
             <img src=${pump} alt="Pompa Industri" />
             <h3>
               Pompa Industri <i class="arrow right"></i
               ><i class="arrow right"></i>
             </h3>
             <!-- <p>Produk unggulan kami seperti pompa Franklin, Flugo, dll.</p> -->
-          </div>
-          <div
-            class="section-container"
-            @click=${() => this.onItemClick('motor-elektrik')}
-          >
+          </a>
+          <a href="/motor-elektrik" class="section-container">
             <img src=${electricMotor} alt="Motor Elektrik" />
             <h3>
               Motor Elektrik <i class="arrow right"></i
               ><i class="arrow right"></i>
             </h3>
             <!-- <p>Produk unggulan kami seperti motor Alliance, Franklin, dll.</p> -->
-          </div>
+          </a>
         </div>
       </article>
     `;
