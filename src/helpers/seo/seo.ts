@@ -84,12 +84,12 @@ const metaActions = (
  * Set document title to HTML head
  * @param title string
  */
-export const setTitle = (title: string): SeoActionStatus => {
+const setTitle = (title: string): SeoActionStatus => {
   document.title = title;
   return SeoActionStatus.UPDATED;
 };
 
-export const setMetaDescription = (description: string): SeoActionStatus => {
+const setMetaDescription = (description: string): SeoActionStatus => {
   const element: HTMLMetaElement = document.head.querySelector(
     `meta[${SeoMetaAttribute.NAME}="${SeoMetaBasic.DESCRIPTION}"]`
   );

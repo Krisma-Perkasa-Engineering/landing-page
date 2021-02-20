@@ -19,7 +19,7 @@ import {Tag as TagDTO} from '../../actions/types';
 import {fetchProductsSummaryByTag as fetchProductsSummaryByTagAction} from '../../actions/products';
 import {ProductSummary, ScreenSize} from '../../components/types';
 import {Tag} from './types';
-import {setTitle, setMetaDescription, setMetaTags} from '../../helpers/seo/seo';
+import {setMetaTags} from '../../helpers/seo/seo';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -154,8 +154,7 @@ export class ListProductsBytag extends LitElement {
         setMetaTags(pageSeo.title, pageSeo.description, pageUrl, pageSeo.image);
       })
       .catch(() => {
-        setTitle('');
-        setMetaDescription('');
+        setMetaTags('', '', pageUrl);
       });
   }
 
