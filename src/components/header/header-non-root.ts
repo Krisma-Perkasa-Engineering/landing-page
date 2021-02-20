@@ -25,6 +25,9 @@ export class Header extends LitElement {
         align-self: center;
         font-size: var(--kpe-h1-font-size);
         font-weight: var(--kpe-h1-font-weight);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     `;
   }

@@ -56,6 +56,9 @@ export class ListBrandsAndCategories extends LitElement {
   @internalProperty()
   listBrands: Array<Item> = [];
 
+  @internalProperty()
+  notFoundBrandsCategories: Array<string> = [];
+
   static get styles() {
     return css`
       h1 {
@@ -116,8 +119,16 @@ export class ListBrandsAndCategories extends LitElement {
       .then((categories: Array<CategoryDTO>) => {
         this.listCategories = categories;
       })
-      .catch(() => {
+      .catch((err) => {
         this.listCategories = [];
+        if (this.notFoundBrandsCategories.length > 0) {
+          this.history.replaceState({errorMessage: err.message}, null, '/404');
+          this.window.dispatchEvent(new PopStateEvent('popstate'));
+        }
+        this.notFoundBrandsCategories = [
+          ...this.notFoundBrandsCategories,
+          'fetchCategories',
+        ];
       });
   }
 
@@ -129,8 +140,16 @@ export class ListBrandsAndCategories extends LitElement {
       .then((brands: Array<BrandDTO>) => {
         this.listBrands = brands;
       })
-      .catch(() => {
+      .catch((err) => {
         this.listBrands = [];
+        if (this.notFoundBrandsCategories.length > 0) {
+          this.history.replaceState({errorMessage: err.message}, null, '/404');
+          this.window.dispatchEvent(new PopStateEvent('popstate'));
+        }
+        this.notFoundBrandsCategories = [
+          ...this.notFoundBrandsCategories,
+          'fetchBrands',
+        ];
       });
   }
 

@@ -4,6 +4,7 @@ import '../../pages/home/home';
 import '../../pages/listBrandsAndCategories/list-brands-and-categories';
 import '../../pages/listProductsByTag/list-products-by-tag';
 import '../../pages/detailProduct/detail-product';
+import '../../pages/pageNotFound/page-not-found';
 
 window.addEventListener('load', () => {
   initRouter();
@@ -19,6 +20,10 @@ function initRouter() {
       component: 'kpe-home',
     },
     {
+      path: '/404',
+      component: 'kpe-page-not-found',
+    },
+    {
       path: '/:mainSlug',
       component: 'kpe-list-brands-and-categories',
     },
@@ -27,12 +32,12 @@ function initRouter() {
       component: 'kpe-list-products-by-tag',
     },
     {
-      path: '/:mainSlug/:typeSlug/:productSlug',
+      path: '/:mainSlug/product/:productSlug',
       component: 'kpe-detail-product',
     },
     {
       path: '(.*)',
-      component: 'kpe-home',
+      redirect: '/404',
     },
   ]);
 }
