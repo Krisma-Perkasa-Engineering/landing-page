@@ -18,7 +18,8 @@ import './contact-us.ts';
 
 import {Images} from '../../components/carousel/types';
 import {ScreenSize} from '../../components/types';
-import {setMetaTags} from '../../helpers/seo/seo';
+import {setMetaTags, onSeoUpdated} from '../../helpers/seo/seo';
+import {CustomWindow} from '../../helpers/seo/types';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -28,6 +29,9 @@ import logo3 from '../../assets/images/carousel/banner-pump-3.jpg';
 
 @customElement('kpe-home')
 export class Home extends LitElement {
+  @property({type: Object})
+  window: CustomWindow = window;
+
   @property({type: Object})
   document: Document = document;
 
@@ -94,14 +98,15 @@ export class Home extends LitElement {
   /**
    * This will fetch SEO metadata for current page
    */
-  fetchPageSeo(slug: string, pageUrl: string) {
+  fetchPageSeo(slug: string, pageUrl: string, onUpdated: typeof onSeoUpdated) {
     fetchPageSeoAction(slug)
       .then((pageSeo: PageSeo) => {
         setMetaTags(pageSeo.title, pageSeo.description, pageUrl);
       })
       .catch(() => {
         setMetaTags('', '', pageUrl);
-      });
+      })
+      .finally(() => onUpdated(this.window));
   }
 
   windowChange = () => {
@@ -126,6 +131,6 @@ export class Home extends LitElement {
 
   firstUpdated() {
     const pageUrl = location.href; // Can't use local location as it will get undefined
-    this.fetchPageSeo('', pageUrl);
+    this.fetchPageSeo('', pageUrl, onSeoUpdated);
   }
 }

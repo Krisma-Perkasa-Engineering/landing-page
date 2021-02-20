@@ -4,6 +4,7 @@ import {
   SeoMetaBasic,
   SeoMetaOG,
   SeoMetaTwitter,
+  CustomWindow,
 } from './types';
 
 /**
@@ -251,4 +252,8 @@ export const setMetaTags = (
     setMetaOG(title, description, imageUrl, pageUrl, type) &&
     setMetaTwitter(card, title, description, imageUrl)
   );
+};
+
+export const onSeoUpdated = (window: CustomWindow) => {
+  window.prerenderReady = true;
 };

@@ -18,7 +18,8 @@ import {fetchBrands as fetchBrandsAction} from '../../actions/brands';
 import {Category as CategoryDTO, Brand as BrandDTO} from '../../actions/types';
 import {ScreenSize} from '../../components/types';
 import {Item} from './types';
-import {setMetaTags} from '../../helpers/seo/seo';
+import {setMetaTags, onSeoUpdated} from '../../helpers/seo/seo';
+import {CustomWindow} from '../../helpers/seo/types';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -29,7 +30,7 @@ import {toTitleCase} from '../../helpers/toTiltleCase/toTitleCase';
 @customElement('kpe-list-brands-and-categories')
 export class ListBrandsAndCategories extends LitElement {
   @property({type: Object})
-  window: Window = window;
+  window: CustomWindow = window;
 
   @property({type: Object})
   history: History = this.window.history;
@@ -136,14 +137,15 @@ export class ListBrandsAndCategories extends LitElement {
   /**
    * This will fetch SEO metadata for current page
    */
-  fetchPageSeo(slug: string, pageUrl: string) {
+  fetchPageSeo(slug: string, pageUrl: string, onUpdated: typeof onSeoUpdated) {
     fetchPageSeoAction(slug)
       .then((pageSeo: PageSeo) => {
         setMetaTags(pageSeo.title, pageSeo.description, pageUrl, pageSeo.image);
       })
       .catch(() => {
         setMetaTags('', '', pageUrl);
-      });
+      })
+      .finally(() => onUpdated(this.window));
   }
 
   onItemClick = (itemEvent: CustomEvent) => {
@@ -186,6 +188,6 @@ export class ListBrandsAndCategories extends LitElement {
     const pageUrl = location.href; // Can't use local location as it will get undefined
     this.fetchCategories(typeSlug);
     this.fetchBrands(typeSlug);
-    this.fetchPageSeo(typeSlug, pageUrl);
+    this.fetchPageSeo(typeSlug, pageUrl, onSeoUpdated);
   }
 }
