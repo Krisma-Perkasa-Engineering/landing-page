@@ -18,7 +18,7 @@ import {fetchBrands as fetchBrandsAction} from '../../actions/brands';
 import {Category as CategoryDTO, Brand as BrandDTO} from '../../actions/types';
 import {ScreenSize} from '../../components/types';
 import {Item} from './types';
-import {setTitle, setMetaDescription} from '../../helpers/seo/seo';
+import {setTitle, setMetaDescription, setMetaTags} from '../../helpers/seo/seo';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -136,11 +136,10 @@ export class ListBrandsAndCategories extends LitElement {
   /**
    * This will fetch SEO metadata for current page
    */
-  fetchPageSeo(slug: string) {
+  fetchPageSeo(slug: string, pageUrl: string) {
     fetchPageSeoAction(slug)
       .then((pageSeo: PageSeo) => {
-        setTitle(pageSeo.title);
-        setMetaDescription(pageSeo.description);
+        setMetaTags(pageSeo.title, pageSeo.description, pageUrl, pageSeo.image);
       })
       .catch(() => {
         setTitle('');
@@ -185,8 +184,9 @@ export class ListBrandsAndCategories extends LitElement {
 
   firstUpdated() {
     const typeSlug = this.location.pathname.split('/').pop();
+    const pageUrl = location.href; // Can't use local location as it will get undefined
     this.fetchCategories(typeSlug);
     this.fetchBrands(typeSlug);
-    this.fetchPageSeo(typeSlug);
+    this.fetchPageSeo(typeSlug, pageUrl);
   }
 }

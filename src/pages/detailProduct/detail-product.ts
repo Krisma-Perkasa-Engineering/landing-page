@@ -16,7 +16,7 @@ import '../../components/footer/footer-plain.ts';
 import {ScreenSize} from '../../components/types';
 import {ContactIcon, Corporate, CorporateTemplate, Product} from './types';
 import {fetchProductBySlug} from '../../actions/products';
-import {setTitle, setMetaDescription} from '../../helpers/seo/seo';
+import {setTitle, setMetaDescription, setMetaTags} from '../../helpers/seo/seo';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -183,11 +183,16 @@ export class DetailProduct extends LitElement {
   /**
    * This will fetch SEO metadata for current page
    */
-  fetchPageSeo(slug: string) {
+  fetchPageSeo(slug: string, pageUrl: string) {
+    const baseUrl = pageUrl.split('/').slice(0, 3).join('/');
     fetchPageSeoAction(slug)
       .then((pageSeo: PageSeo) => {
-        setTitle(pageSeo.title);
-        setMetaDescription(pageSeo.description);
+        setMetaTags(
+          pageSeo.title,
+          pageSeo.description,
+          pageUrl,
+          baseUrl + pageSeo.image
+        );
       })
       .catch(() => {
         setTitle('');
@@ -223,7 +228,8 @@ export class DetailProduct extends LitElement {
 
   firstUpdated() {
     const productSlug = this.location.pathname.split('/').pop();
+    const pageUrl = location.href; // Can't use local location as it will get undefined
     this.fetchProductBySlug(productSlug);
-    this.fetchPageSeo(`product/${productSlug}`);
+    this.fetchPageSeo(`product/${productSlug}`, pageUrl);
   }
 }

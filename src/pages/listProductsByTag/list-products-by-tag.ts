@@ -19,7 +19,7 @@ import {Tag as TagDTO} from '../../actions/types';
 import {fetchProductsSummaryByTag as fetchProductsSummaryByTagAction} from '../../actions/products';
 import {ProductSummary, ScreenSize} from '../../components/types';
 import {Tag} from './types';
-import {setTitle, setMetaDescription} from '../../helpers/seo/seo';
+import {setTitle, setMetaDescription, setMetaTags} from '../../helpers/seo/seo';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -148,11 +148,10 @@ export class ListProductsBytag extends LitElement {
   /**
    * This will fetch SEO metadata for current page
    */
-  fetchPageSeo(slug: string) {
+  fetchPageSeo(slug: string, pageUrl: string) {
     fetchPageSeoAction(slug)
       .then((pageSeo: PageSeo) => {
-        setTitle(pageSeo.title);
-        setMetaDescription(pageSeo.description);
+        setMetaTags(pageSeo.title, pageSeo.description, pageUrl, pageSeo.image);
       })
       .catch(() => {
         setTitle('');
@@ -189,8 +188,9 @@ export class ListProductsBytag extends LitElement {
   firstUpdated() {
     const typeSlug = this.location.pathname.split('/').pop();
     const mainCategory = this.location.pathname.split('/').slice(-2)[0];
+    const pageUrl = location.href; // Can't use local location as it will get undefined
     this.fetchTag(typeSlug);
     this.fetchProductsSummaryByTag(typeSlug, mainCategory);
-    this.fetchPageSeo(`${mainCategory}/${typeSlug}`);
+    this.fetchPageSeo(`${mainCategory}/${typeSlug}`, pageUrl);
   }
 }

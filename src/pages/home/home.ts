@@ -18,7 +18,7 @@ import './contact-us.ts';
 
 import {Images} from '../../components/carousel/types';
 import {ScreenSize} from '../../components/types';
-import {setTitle, setMetaDescription} from '../../helpers/seo/seo';
+import {setTitle, setMetaDescription, setMetaTags} from '../../helpers/seo/seo';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -94,11 +94,10 @@ export class Home extends LitElement {
   /**
    * This will fetch SEO metadata for current page
    */
-  fetchPageSeo(slug: string) {
+  fetchPageSeo(slug: string, pageUrl: string) {
     fetchPageSeoAction(slug)
       .then((pageSeo: PageSeo) => {
-        setTitle(pageSeo.title);
-        setMetaDescription(pageSeo.description);
+        setMetaTags(pageSeo.title, pageSeo.description, pageUrl);
       })
       .catch(() => {
         setTitle('');
@@ -127,6 +126,7 @@ export class Home extends LitElement {
   }
 
   firstUpdated() {
-    this.fetchPageSeo('');
+    const pageUrl = location.href; // Can't use local location as it will get undefined
+    this.fetchPageSeo('', pageUrl);
   }
 }
