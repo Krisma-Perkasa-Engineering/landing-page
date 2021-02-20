@@ -18,7 +18,7 @@ import {fetchBrands as fetchBrandsAction} from '../../actions/brands';
 import {Category as CategoryDTO, Brand as BrandDTO} from '../../actions/types';
 import {ScreenSize} from '../../components/types';
 import {Item} from './types';
-import {setTitle, setMetaDescription, setMetaTags} from '../../helpers/seo/seo';
+import {setMetaTags} from '../../helpers/seo/seo';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -142,8 +142,7 @@ export class ListBrandsAndCategories extends LitElement {
         setMetaTags(pageSeo.title, pageSeo.description, pageUrl, pageSeo.image);
       })
       .catch(() => {
-        setTitle('');
-        setMetaDescription('');
+        setMetaTags('', '', pageUrl);
       });
   }
 

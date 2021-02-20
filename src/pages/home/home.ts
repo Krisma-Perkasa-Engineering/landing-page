@@ -18,7 +18,7 @@ import './contact-us.ts';
 
 import {Images} from '../../components/carousel/types';
 import {ScreenSize} from '../../components/types';
-import {setTitle, setMetaDescription, setMetaTags} from '../../helpers/seo/seo';
+import {setMetaTags} from '../../helpers/seo/seo';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -100,8 +100,7 @@ export class Home extends LitElement {
         setMetaTags(pageSeo.title, pageSeo.description, pageUrl);
       })
       .catch(() => {
-        setTitle('');
-        setMetaDescription('');
+        setMetaTags('', '', pageUrl);
       });
   }
 

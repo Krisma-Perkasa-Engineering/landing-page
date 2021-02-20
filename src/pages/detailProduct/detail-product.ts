@@ -16,7 +16,7 @@ import '../../components/footer/footer-plain.ts';
 import {ScreenSize} from '../../components/types';
 import {ContactIcon, Corporate, CorporateTemplate, Product} from './types';
 import {fetchProductBySlug} from '../../actions/products';
-import {setTitle, setMetaDescription, setMetaTags} from '../../helpers/seo/seo';
+import {setMetaTags} from '../../helpers/seo/seo';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -195,8 +195,7 @@ export class DetailProduct extends LitElement {
         );
       })
       .catch(() => {
-        setTitle('');
-        setMetaDescription('');
+        setMetaTags('', '', pageUrl);
       });
   }
 
