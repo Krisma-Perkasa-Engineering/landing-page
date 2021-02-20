@@ -28,3 +28,7 @@ export enum SeoMetaTwitter {
   DESCRIPTION = 'twitter:description',
   IMAGE = 'twitter:image',
 }
+
+export type CustomWindow = Window & {
+  prerenderReady?: boolean;
+};

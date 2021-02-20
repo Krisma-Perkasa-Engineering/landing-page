@@ -16,7 +16,8 @@ import '../../components/footer/footer-plain.ts';
 import {ScreenSize} from '../../components/types';
 import {ContactIcon, Corporate, CorporateTemplate, Product} from './types';
 import {fetchProductBySlug} from '../../actions/products';
-import {setMetaTags} from '../../helpers/seo/seo';
+import {setMetaTags, onSeoUpdated} from '../../helpers/seo/seo';
+import {CustomWindow} from '../../helpers/seo/types';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -28,7 +29,7 @@ import BackIcon from '../../assets/images/icons/back.svg';
 @customElement('kpe-detail-product')
 export class DetailProduct extends LitElement {
   @property({type: Object})
-  window: Window = window;
+  window: CustomWindow = window;
 
   @property({type: Object})
   history: History = this.window.history;
@@ -183,7 +184,7 @@ export class DetailProduct extends LitElement {
   /**
    * This will fetch SEO metadata for current page
    */
-  fetchPageSeo(slug: string, pageUrl: string) {
+  fetchPageSeo(slug: string, pageUrl: string, onUpdated: typeof onSeoUpdated) {
     const baseUrl = pageUrl.split('/').slice(0, 3).join('/');
     fetchPageSeoAction(slug)
       .then((pageSeo: PageSeo) => {
@@ -196,7 +197,8 @@ export class DetailProduct extends LitElement {
       })
       .catch(() => {
         setMetaTags('', '', pageUrl);
-      });
+      })
+      .finally(() => onUpdated(this.window));
   }
 
   onBackClick = () => {
@@ -229,6 +231,6 @@ export class DetailProduct extends LitElement {
     const productSlug = this.location.pathname.split('/').pop();
     const pageUrl = location.href; // Can't use local location as it will get undefined
     this.fetchProductBySlug(productSlug);
-    this.fetchPageSeo(`product/${productSlug}`, pageUrl);
+    this.fetchPageSeo(`product/${productSlug}`, pageUrl, onSeoUpdated);
   }
 }

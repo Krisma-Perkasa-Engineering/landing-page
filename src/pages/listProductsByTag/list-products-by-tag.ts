@@ -19,7 +19,8 @@ import {Tag as TagDTO} from '../../actions/types';
 import {fetchProductsSummaryByTag as fetchProductsSummaryByTagAction} from '../../actions/products';
 import {ProductSummary, ScreenSize} from '../../components/types';
 import {Tag} from './types';
-import {setMetaTags} from '../../helpers/seo/seo';
+import {setMetaTags, onSeoUpdated} from '../../helpers/seo/seo';
+import {CustomWindow} from '../../helpers/seo/types';
 import {fetchPageSeo as fetchPageSeoAction} from '../../actions/pageSeos';
 import {PageSeo} from '../../actions/types';
 
@@ -28,7 +29,7 @@ import backIcon from '../../assets/images/icons/back.svg';
 @customElement('kpe-list-products-by-tag')
 export class ListProductsBytag extends LitElement {
   @property({type: Object})
-  window: Window = window;
+  window: CustomWindow = window;
 
   @property({type: Object})
   history: History = this.window.history;
@@ -148,14 +149,15 @@ export class ListProductsBytag extends LitElement {
   /**
    * This will fetch SEO metadata for current page
    */
-  fetchPageSeo(slug: string, pageUrl: string) {
+  fetchPageSeo(slug: string, pageUrl: string, onUpdated: typeof onSeoUpdated) {
     fetchPageSeoAction(slug)
       .then((pageSeo: PageSeo) => {
         setMetaTags(pageSeo.title, pageSeo.description, pageUrl, pageSeo.image);
       })
       .catch(() => {
         setMetaTags('', '', pageUrl);
-      });
+      })
+      .finally(() => onUpdated(this.window));
   }
 
   onBackClick = () => {
@@ -190,6 +192,6 @@ export class ListProductsBytag extends LitElement {
     const pageUrl = location.href; // Can't use local location as it will get undefined
     this.fetchTag(typeSlug);
     this.fetchProductsSummaryByTag(typeSlug, mainCategory);
-    this.fetchPageSeo(`${mainCategory}/${typeSlug}`, pageUrl);
+    this.fetchPageSeo(`${mainCategory}/${typeSlug}`, pageUrl, onSeoUpdated);
   }
 }
