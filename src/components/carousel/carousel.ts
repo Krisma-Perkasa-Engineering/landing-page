@@ -6,10 +6,11 @@ import {
   property,
   internalProperty,
 } from 'lit-element';
+import {styleMap} from 'lit-html/directives/style-map';
 
 import ImageProcessor from './imageProcessor';
-import './slider-button';
-import {Direction, Images, ImagesProcessed} from './types';
+import generateAnimationConfig from './generateAnimationConfig';
+import {Images, ImagesProcessed} from './types';
 import {ScreenSize} from '../types';
 
 @customElement('carousel-images')
@@ -24,28 +25,31 @@ export class Carousel extends LitElement {
   };
 
   @internalProperty()
-  activeIndex: number = 0;
-
-  @internalProperty()
   imagesProcessed: Array<ImagesProcessed> = [];
-
-  @internalProperty()
-  autoScroll: NodeJS.Timeout;
 
   static get styles() {
     return css`
-      .image-container {
+      :host {
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      .carousel-content-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        overflow-x: hidden;
+      }
+
+      .carousel-banner-container {
         position: relative;
         text-align: center;
-        color: black;
-        display: none;
       }
 
-      .image-container[show='true'] {
-        display: block;
-      }
-
-      .image-container h1 {
+      .carousel-banner-container > h1 {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -73,6 +77,30 @@ export class Carousel extends LitElement {
     `;
   }
 
+  render() {
+    return html`
+      <div class="carousel">
+        <div
+          class="carousel-content-container"
+          style=${styleMap({
+            width: `${String(
+              this.screenSize.width * this.imagesProcessed.length
+            )}px`,
+          })}
+        >
+          ${this.imagesProcessed.map((image, idx) => {
+            return html`
+              <div class="carousel-banner-container">
+                <img src=${image.url} alt=${image.alt} />
+                <h1>${image.title}</h1>
+              </div>
+            `;
+          })}
+        </div>
+      </div>
+    `;
+  }
+
   async processImage(images: Array<Images>) {
     const imagesProcessed = await Promise.all(
       images.map(async (image) => {
@@ -96,52 +124,17 @@ export class Carousel extends LitElement {
     super.performUpdate();
   }
 
-  decreaseActiveIndex() {
-    this.activeIndex =
-      this.activeIndex === 0 ? this.images.length - 1 : this.activeIndex - 1;
-  }
-
-  increaseActiveIndex() {
-    this.activeIndex =
-      this.activeIndex === this.images.length - 1 ? 0 : this.activeIndex + 1;
+  firstUpdated() {
+    this.shadowRoot
+      .querySelector('.carousel-content-container')
+      .animate(...generateAnimationConfig(this.imagesProcessed.length));
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this.autoScroll = setInterval(this.increaseActiveIndex.bind(this), 3000);
-    // window.addEventListener('resize', this.windowChange);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    clearInterval(this.autoScroll);
-    // window.removeEventListener('resize', this.windowChange);
-  }
-
-  render() {
-    return html`
-      <div id="carousel-container">
-        <div id="carusel-image-container">
-          ${this.imagesProcessed.map((image, idx) => {
-            return html`
-              <div class="image-container" show=${this.activeIndex === idx}>
-                <img src=${image.url} alt=${image.alt} />
-                <h1>${image.title}</h1>
-              </div>
-            `;
-          })}
-        </div>
-        <carousel-slider-button
-          id="previous-button"
-          direction=${Direction.Previous}
-          @button-click=${this.decreaseActiveIndex}
-        ></carousel-slider-button>
-        <carousel-slider-button
-          id="next-button"
-          direction=${Direction.Next}
-          @button-click=${this.increaseActiveIndex}
-        ></carousel-slider-button>
-      </div>
-    `;
   }
 }

@@ -35,12 +35,11 @@ suite('carousel-images', () => {
     assert.shadowDom.equal(
       el,
       `
-      <div id="carousel-container">
-        <div id="carusel-image-container"></div>
-        <carousel-slider-button direction="previous" id="previous-button">
-        </carousel-slider-button>
-        <carousel-slider-button direction="next" id="next-button">
-        </carousel-slider-button>
+      <div class="carousel">
+        <div
+          class="carousel-content-container"
+          style="width: 0px;"
+        />
       </div>
       `
     );
@@ -58,45 +57,5 @@ suite('carousel-images', () => {
     imgs[1].removeAttribute('src');
     imgs[2].removeAttribute('src');
     assert.shadowDom.equalSnapshot(el);
-  });
-
-  test('render carousel next image', async () => {
-    const el = (await fixture(
-      html`<carousel-images
-        .images="${images}"
-        .screenSize="${{width: 1440, height: 1024}}"
-      ></carousel-images>`
-    )) as Carousel;
-
-    el.shadowRoot
-      .querySelector('#next-button')
-      .shadowRoot.querySelector('button')
-      .click();
-    await el.updateComplete;
-
-    const imageConteiners = el.shadowRoot.querySelectorAll('.image-container');
-    assert.strictEqual(imageConteiners[0].getAttribute('show'), 'false');
-    assert.strictEqual(imageConteiners[1].getAttribute('show'), 'true');
-    assert.strictEqual(imageConteiners[2].getAttribute('show'), 'false');
-  });
-
-  test('render carousel previous image', async () => {
-    const el = (await fixture(
-      html`<carousel-images
-        .images="${images}"
-        .screenSize="${{width: 1440, height: 1024}}"
-      ></carousel-images>`
-    )) as Carousel;
-
-    el.shadowRoot
-      .querySelector('#previous-button')
-      .shadowRoot.querySelector('button')
-      .click();
-    await el.updateComplete;
-
-    const imageConteiners = el.shadowRoot.querySelectorAll('.image-container');
-    assert.strictEqual(imageConteiners[0].getAttribute('show'), 'false');
-    assert.strictEqual(imageConteiners[1].getAttribute('show'), 'false');
-    assert.strictEqual(imageConteiners[2].getAttribute('show'), 'true');
   });
 });
