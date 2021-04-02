@@ -29,6 +29,9 @@ export class Carousel extends LitElement {
   @internalProperty()
   imagesProcessed: Array<ImagesProcessed> = [];
 
+  @internalProperty()
+  autoScroll: NodeJS.Timeout;
+
   static get styles() {
     return css`
       .image-container {
@@ -101,6 +104,18 @@ export class Carousel extends LitElement {
   increaseActiveIndex() {
     this.activeIndex =
       this.activeIndex === this.images.length - 1 ? 0 : this.activeIndex + 1;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.autoScroll = setInterval(this.increaseActiveIndex.bind(this), 3000);
+    // window.addEventListener('resize', this.windowChange);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    clearInterval(this.autoScroll);
+    // window.removeEventListener('resize', this.windowChange);
   }
 
   render() {
