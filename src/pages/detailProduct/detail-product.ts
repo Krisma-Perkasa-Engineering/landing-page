@@ -60,7 +60,7 @@ export class DetailProduct extends LitElement {
   @internalProperty()
   corporate: Corporate = {
     phone: '0317326448',
-    email: 'sales@krimsaperkasa.com',
+    email: 'sales@krismaperkasa.com',
     whatsapp: '62816503088',
   };
 
