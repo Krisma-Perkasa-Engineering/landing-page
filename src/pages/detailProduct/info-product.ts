@@ -18,7 +18,7 @@ export class InfoProduct extends LitElement {
   @property({type: Object})
   corporate: Corporate = {
     phone: '0317326448',
-    email: 'sales@krimsaperkasa.com',
+    email: 'sales@krismaperkasa.com',
     whatsapp: '62816503088',
   };
 

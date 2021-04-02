@@ -35,7 +35,7 @@
       </a>
     </div>
     <div class="contact">
-      <a href="mailto:sales@krimsaperkasa.com?subject=Tanya%20mengenai%20produk%20Pompa%20submersible%20Flugo%20V-6&amp;body=Halo%20Krisma%20Perkasa%20Engineering%2C%20saya%20ingin%20mengetahui%20tentang%20produk%20Pompa%20submersible%20Flugo%20V-6%20lebih%20dalam.">
+      <a href="mailto:sales@krismaperkasa.com?subject=Tanya%20mengenai%20produk%20Pompa%20submersible%20Flugo%20V-6&amp;body=Halo%20Krisma%20Perkasa%20Engineering%2C%20saya%20ingin%20mengetahui%20tentang%20produk%20Pompa%20submersible%20Flugo%20V-6%20lebih%20dalam.">
         <img
           alt="email"
           src="https://path.to.icon/email"
@@ -100,7 +100,7 @@
       </a>
     </div>
     <div class="contact">
-      <a href="mailto:sales@krimsaperkasa.com?subject=Tanya%20mengenai%20produk%20Pompa%20submersible%20Flugo%20V-6&amp;body=Halo%20Krisma%20Perkasa%20Engineering%2C%20saya%20ingin%20mengetahui%20tentang%20produk%20Pompa%20submersible%20Flugo%20V-6%20lebih%20dalam.">
+      <a href="mailto:sales@krismaperkasa.com?subject=Tanya%20mengenai%20produk%20Pompa%20submersible%20Flugo%20V-6&amp;body=Halo%20Krisma%20Perkasa%20Engineering%2C%20saya%20ingin%20mengetahui%20tentang%20produk%20Pompa%20submersible%20Flugo%20V-6%20lebih%20dalam.">
         <img
           alt="email"
           src="https://path.to.icon/email"
